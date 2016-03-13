@@ -14,7 +14,7 @@ class beegfs::meta (
   $interfaces      = ['eth0'],
   $interfaces_file = '/etc/beegfs/interfaces.meta',
   $major_version   = $beegfs::major_version,
-) {
+) inherits ::beegfs {
 
   require beegfs::install
   validate_array($interfaces)

@@ -1,25 +1,23 @@
 # Class: beegfs
 # ===========================
 #
-# Full description of class beegfs here.
 #
 # Parameters
 # ----------
 #
-# * `sample parameter`
-#   Explanation of what this parameter affects and what it defaults to.
-#   e.g. "Specify one or more upstream ntp servers as an array."
+# * `mgmtd_host`
+#   ipaddress of management node
 #
 class beegfs (
   $manage_repo                   = true,
   $mgmtd_host                    = 'localhost',
   $meta_directory                = '/srv/beegfs/meta',
   $storage_directory             = '/srv/beegfs/storage',
-  $client_auto_remove_mins       = 0,
-  $meta_space_low_limit          = '5G',
+  $client_auto_remove_mins       = 30,
+  $meta_space_low_limit          = '10G',
   $meta_space_emergency_limit    = '3G',
   $storage_space_low_limit       = '100G',
-  $storage_space_emergency_limit = '10G',
+  $storage_space_emergency_limit = '20G',
   $package_source                = 'beegfs',
   $version                       = undef,
   $log_dir                       = '/var/log/beegfs',

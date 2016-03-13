@@ -16,7 +16,7 @@ class beegfs::storage (
   $mgmtd_tcp_port    = 8008,
   $mgmtd_udp_port    = 8008,
   $major_version     = $beegfs::major_version,
-) {
+) inherits ::beegfs {
 
   require beegfs::install
   validate_array($interfaces)
