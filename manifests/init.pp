@@ -27,4 +27,9 @@ class beegfs (
   $admon_db_file                 = '/var/lib/beegfs/beegfs-admon.db',
 ) inherits ::beegfs::params {
 
+  if ($version == undef){
+    $package_ensure = 'present'
+  }else{
+    $package_ensure = $version
+  }
 }
