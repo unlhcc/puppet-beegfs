@@ -19,9 +19,11 @@ define beegfs::mount (
     mode   => '0755',
   }
 
-  file_line { 'mnt_config':
-    line    => "${mnt} ${cfg}",
-    path    => $mounts_cfg,
+  concat::fragment { $mnt:
+    ensure  => present,
+    target  => $mounts_cfg,
+    content => "${mnt} ${cfg}",
     require => [ File[$mounts_cfg], File[$mnt] ],
   }
+
 }

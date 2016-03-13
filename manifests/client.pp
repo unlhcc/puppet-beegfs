@@ -66,11 +66,10 @@ class beegfs::client (
     require    => Package['beegfs-helperd'],
   }
 
-  file { '/etc/beegfs/beegfs-mounts.conf':
-    ensure  => present,
+  concat { '/etc/beegfs/beegfs-mounts.conf':
     owner   => $user,
     group   => $group,
-    mode    => '0755',
+    mode    => '0644',
     require => Package['beegfs-client'],
   }
 

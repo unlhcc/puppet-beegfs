@@ -16,12 +16,9 @@ describe 'beegfs::mount' do
     :mnt   => '/mnt/share',
   }}
 
-  it { should contain_file('/etc/beegfs/beegfs-mounts.conf').with({
-      'ensure'  => 'present',
-      'mode'    => '0755',
-  })
-  # testing file_line doesn't work this way
-  #.with_content('/mnt/share /etc/beegfs/beegfs-clients.conf')
-}
+  it { should contain_concat__fragment(
+    '/mnt/share'
+    ).with_content('/mnt/share /etc/beegfs/beegfs-clients.conf')
+  }
 
 end

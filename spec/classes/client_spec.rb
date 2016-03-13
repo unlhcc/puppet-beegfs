@@ -41,11 +41,11 @@ describe 'beegfs::client' do
         :enable => true
     ) }
 
-    it { is_expected.to contain_file('/etc/beegfs/beegfs-mounts.conf').with({
+    it { is_expected.to contain_concat('/etc/beegfs/beegfs-mounts.conf').with({
       'ensure'  => 'present',
       'owner'   => user,
       'group'   => group,
-      'mode'    => '0755'
+      'mode'    => '0644'
     }) }
 
     it { is_expected.to contain_file('/etc/beegfs/beegfs-client.conf').with({
