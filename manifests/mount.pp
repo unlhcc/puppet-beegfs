@@ -23,7 +23,7 @@ define beegfs::mount (
     ensure  => present,
     target  => $mounts_cfg,
     content => "${mnt} ${cfg}",
-    require => [ File[$mounts_cfg], File[$mnt] ],
+    require => [ Concat[$mounts_cfg], File[$mnt] ],
   }
 
 }
