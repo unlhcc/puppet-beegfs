@@ -81,11 +81,11 @@ class beegfs::client (
     require    => [
       Package['beegfs-client'],
       Service['beegfs-helperd'],
-      File['/etc/beegfs/beegfs-mounts.conf'],
+      Concat['/etc/beegfs/beegfs-mounts.conf'],
       File[$interfaces_file],
     ],
     subscribe  => [
-      File['/etc/beegfs/beegfs-mounts.conf'],
+      Concat['/etc/beegfs/beegfs-mounts.conf'],
       File[$interfaces_file],
     ],
   }
