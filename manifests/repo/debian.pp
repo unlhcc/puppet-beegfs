@@ -3,7 +3,6 @@
 class beegfs::repo::debian (
   $manage_repo    = true,
   $package_source = $beegfs::package_source,
-  $package_ensure = $beegfs::package_ensure,
   $major_version  = $beegfs::major_version,
   $release,
 ) {
@@ -21,10 +20,10 @@ class beegfs::repo::debian (
           architecture => 'amd64',
           release      => $release,
           key          => {
-            'id' => '055D000F1A9A092763B1F0DD14E8E08064497785',
+            'id'     => '055D000F1A9A092763B1F0DD14E8E08064497785',
             'source' => 'http://www.beegfs.com/release/latest-stable/gpg/DEB-GPG-KEY-beegfs',
           },
-          include  => {
+          include      => {
             'src' => false,
             'deb' => true,
           },

@@ -13,19 +13,17 @@ class beegfs::repo(
   anchor { 'beegfs::repo::end': }
 
   case $::osfamily {
-    Debian: {
-      class { 'beegfs::repo::debian':
-        package_ensure => $package_ensure,
-        release        => $release,
-        require        => Anchor['beegfs::repo::begin'],
-        before         => Anchor['beegfs::repo::end'],
+    'Debian': {
+      class { '::beegfs::repo::debian':
+        release => $release,
+        require => Anchor['beegfs::repo::begin'],
+        before  => Anchor['beegfs::repo::end'],
       }
     }
-    RedHat: {
-      class { 'beegfs::repo::redhat':
-        package_ensure => $package_ensure,
-        require        => Anchor['beegfs::repo::begin'],
-        before         => Anchor['beegfs::repo::end'],
+    'RedHat': {
+      class { '::beegfs::repo::redhat':
+        require => Anchor['beegfs::repo::begin'],
+        before  => Anchor['beegfs::repo::end'],
       }
     }
     default: {

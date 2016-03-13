@@ -44,7 +44,7 @@ class beegfs::params {
           'descr'   => "BeeGFS 2015.03 (RHEL${::operatingsystemmajrelease})",
           'baseurl' => "http://www.beegfs.com/release/beegfs_2015.03/dists/rhel${::operatingsystemmajrelease}",
           'gpgkey'  => 'http://www.beegfs.com/release/beegfs_2015.03/gpg/RPM-GPG-KEY-beegfs',
-        }
+        },
       }
     }
     default: {

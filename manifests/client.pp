@@ -41,9 +41,9 @@ class beegfs::client (
     owner   => $user,
     group   => $group,
     mode    => '0755',
-    require => [
+    require =>[
       Package['beegfs-utils'],
-      File[$interfaces_file],
+      File[$interfaces_file]
     ],
     content => template("beegfs/${major_version}/beegfs-client.conf.erb"),
   }
@@ -77,8 +77,7 @@ class beegfs::client (
     enable     => true,
     hasstatus  => true,
     hasrestart => true,
-    require    => [
-      Package['beegfs-client'],
+    require    => [ Package['beegfs-client'],
       Service['beegfs-helperd'],
       File[$interfaces_file],
     ],
