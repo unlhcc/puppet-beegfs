@@ -7,6 +7,7 @@
 class beegfs::repo(
   $manage_repo    = $beegfs::manage_repo,
   $package_source = $beegfs::package_source,
+  $release,
 ) inherits beegfs {
   anchor { 'beegfs::repo::begin': }
   anchor { 'beegfs::repo::end': }
@@ -15,6 +16,7 @@ class beegfs::repo(
     Debian: {
       class { 'beegfs::repo::debian':
         package_ensure => $package_ensure,
+        release        => $release,
         require        => Anchor['beegfs::repo::begin'],
         before         => Anchor['beegfs::repo::end'],
       }

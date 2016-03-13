@@ -29,10 +29,4 @@ class beegfs (
   $admon_db_file                 = '/var/lib/beegfs/beegfs-admon.db',
 ) inherits ::beegfs::params {
 
-  # validate parameters here
-
-  class { '::beegfs::install': } ->
-  class { '::beegfs::config': } ~>
-  class { '::beegfs::service': } ->
-  Class['::beegfs']
 }

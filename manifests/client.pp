@@ -14,6 +14,7 @@ class beegfs::client (
   $mgmtd_tcp_port  = 8008,
   $mgmtd_udp_port  = 8008,
   $major_version   = $beegfs::major_version,
+  $kernel_packages = $beegfs::parms::kernel_packages,
 ) inherits beegfs {
 
   require beegfs::install
@@ -21,26 +22,12 @@ class beegfs::client (
 
   anchor { 'beegfs::kernel_dev' : }
 
-  case $::osfamily {
-    Debian: {
-      # we need current linux headers for building client module
-      ensure_resource('package', 'linux-headers-amd64', {
-          'ensure' => 'present',
-          'before' => Anchor['beegfs::kernel_dev']
-        }
-      )
+
+  ensure_resource('package', $kernel_packages, {
+      'ensure' => $kernel_ensure,
+      'before' => Anchor['beegfs::kernel_dev']
     }
-    RedHat: {
-      ensure_resource('package', 'kernel-devel', {
-          'ensure' => $kernel_ensure,
-          'before' => Anchor['beegfs::kernel_dev']
-        }
-      )
-    }
-    default: {
-      fail("OS Family '${::osfamily}' is not supported yet")
-    }
-  }
+  )
 
   file { $interfaces_file:
     ensure  => present,
@@ -59,7 +46,7 @@ class beegfs::client (
       Package['beegfs-utils'],
       File[$interfaces_file],
     ],
-    content => template('beegfs/beegfs-client.conf.erb'),
+    content => template("beegfs/${major_version}/beegfs-client.conf.erb"),
   }
 
 

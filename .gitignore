@@ -11,3 +11,6 @@
 /log
 .yardoc
 coverage
+/Puppetfile.lock
+.librarian
+.tmp
