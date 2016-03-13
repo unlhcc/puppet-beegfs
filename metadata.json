@@ -4,13 +4,17 @@
   "author": "deric",
   "summary": "Manage BeeGFS parallel filesystem installations",
   "license": "Apache-2.0",
-  "source": "github.com/deric/puppet-beegfs",
+  "source": "https://github.com/deric/puppet-beegfs",
   "project_page": "https://github.com/deric/puppet-beegfs",
   "issues_url": "https://github.com/deric/puppet-beegfs/issues",
   "dependencies": [
     {
       "name": "puppetlabs-stdlib",
-      "version_requirement": ">= 1.0.0"
+      "version_requirement": ">= 2.4.0 < 5.0.0"
+    },
+    {
+      "name": "puppetlabs-apt",
+      "version_requirement": ">= 2.1.0 <= 3.0.0"
     }
   ],
   "operatingsystem_support": [

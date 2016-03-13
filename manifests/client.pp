@@ -1,0 +1,107 @@
+# Class: beegfs::client
+#
+# This module manages beegfs client
+#
+class beegfs::client (
+  $user            = $beegfs::user,
+  $group           = $beegfs::group,
+  $package_ensure  = $beegfs::package_ensure,
+  $kernel_ensure   = present,
+  $interfaces      = ['eth0'],
+  $interfaces_file = '/etc/beegfs/interfaces.client',
+  $log_level       = 3,
+  $mgmtd_host      = $beegfs::mgmtd_host,
+  $mgmtd_tcp_port  = 8008,
+  $mgmtd_udp_port  = 8008,
+  $major_version   = $beegfs::major_version,
+) inherits beegfs {
+
+  require beegfs::install
+  validate_array($interfaces)
+
+  anchor { 'beegfs::kernel_dev' : }
+
+  case $::osfamily {
+    Debian: {
+      # we need current linux headers for building client module
+      ensure_resource('package', 'linux-headers-amd64', {
+          'ensure' => 'present',
+          'before' => Anchor['beegfs::kernel_dev']
+        }
+      )
+    }
+    RedHat: {
+      ensure_resource('package', 'kernel-devel', {
+          'ensure' => $kernel_ensure,
+          'before' => Anchor['beegfs::kernel_dev']
+        }
+      )
+    }
+    default: {
+      fail("OS Family '${::osfamily}' is not supported yet")
+    }
+  }
+
+  file { $interfaces_file:
+    ensure  => present,
+    owner   => $user,
+    group   => $group,
+    mode    => '0755',
+    content => template('beegfs/interfaces.erb'),
+  }
+
+  file { '/etc/beegfs/beegfs-client.conf':
+    ensure  => present,
+    owner   => $user,
+    group   => $group,
+    mode    => '0755',
+    require => [
+      Package['beegfs-utils'],
+      File[$interfaces_file],
+    ],
+    content => template('beegfs/beegfs-client.conf.erb'),
+  }
+
+
+  package { 'beegfs-helperd':
+    ensure => $package_ensure,
+  }
+
+  package { 'beegfs-client':
+    ensure  => $package_ensure,
+    require => Anchor['beegfs::kernel_dev'],
+  }
+
+  service { 'beegfs-helperd':
+    ensure     => running,
+    enable     => true,
+    hasstatus  => true,
+    hasrestart => true,
+    require    => Package['beegfs-helperd'],
+  }
+
+  file { '/etc/beegfs/beegfs-mounts.conf':
+    ensure  => present,
+    owner   => $user,
+    group   => $group,
+    mode    => '0755',
+    require => Package['beegfs-client'],
+  }
+
+  service { 'beegfs-client':
+    ensure     => running,
+    enable     => true,
+    hasstatus  => true,
+    hasrestart => true,
+    require    => [
+      Package['beegfs-client'],
+      Service['beegfs-helperd'],
+      File['/etc/beegfs/beegfs-mounts.conf'],
+      File[$interfaces_file],
+    ],
+    subscribe  => [
+      File['/etc/beegfs/beegfs-mounts.conf'],
+      File[$interfaces_file],
+    ],
+  }
+}
