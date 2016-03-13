@@ -10,8 +10,6 @@ define beegfs::mount (
   $mounts_cfg = '/etc/beegfs/beegfs-mounts.conf',
 ) {
 
-  require beegfs::client
-
   file { $mnt:
     ensure => directory,
     owner  => $user,

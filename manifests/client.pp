@@ -10,7 +10,7 @@ class beegfs::client (
   $interfaces      = ['eth0'],
   $interfaces_file = '/etc/beegfs/interfaces.client',
   $log_level       = 3,
-  $mgmtd_host      = $beegfs::mgmtd_host,
+  $mgmtd_host      = hiera('beegfs::mgmtd_host', $beegfs::mgmtd_host),
   $mgmtd_tcp_port  = 8008,
   $mgmtd_udp_port  = 8008,
   $major_version   = $beegfs::major_version,
@@ -48,7 +48,6 @@ class beegfs::client (
     content => template("beegfs/${major_version}/beegfs-client.conf.erb"),
   }
 
-
   package { 'beegfs-helperd':
     ensure => $package_ensure,
   }
@@ -81,7 +80,6 @@ class beegfs::client (
     require    => [
       Package['beegfs-client'],
       Service['beegfs-helperd'],
-      Concat['/etc/beegfs/beegfs-mounts.conf'],
       File[$interfaces_file],
     ],
     subscribe  => [
