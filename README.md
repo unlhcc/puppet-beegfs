@@ -1,60 +1,64 @@
-#### Table of Contents
-
-1. [Overview](#overview)
-2. [Module Description - What the module does and why it is useful](#module-description)
-3. [Setup - The basics of getting started with beegfs](#setup)
-    * [What beegfs affects](#what-beegfs-affects)
-    * [Setup requirements](#setup-requirements)
-    * [Beginning with beegfs](#beginning-with-beegfs)
-4. [Usage - Configuration options and additional functionality](#usage)
-5. [Reference - An under-the-hood peek at what the module is doing and how](#reference)
-5. [Limitations - OS compatibility, etc.](#limitations)
-6. [Development - Guide for contributing to the module](#development)
-
-## Overview
-
-A one-maybe-two sentence summary of what the module does/what problem it solves. This is your 30 second elevator pitch for your module. Consider including OS/Puppet version it works with.       
-
-## Module Description
-
-If applicable, this section should have a brief description of the technology the module integrates with and what that integration enables. This section should answer the questions: "What does this module *do*?" and "Why would I use it?"
-
-If your module has a range of functionality (installation, configuration, management, etc.) this is the time to mention it.
-
-## Setup
-
-### What beegfs affects
-
-* A list of files, packages, services, or operations that the module will alter, impact, or execute on the system it's installed on.
-* This is a great place to stick any warnings.
-* Can be in list or paragraph form. 
-
-### Setup Requirements **OPTIONAL**
-
-If your module requires anything extra before setting up (pluginsync enabled, etc.), mention it here. 
-
-### Beginning with beegfs
-
-The very basic steps needed for a user to get the module up and running. 
-
-If your most recent release breaks compatibility or requires particular steps for upgrading, you may wish to include an additional section here: Upgrading (For an example, see http://forge.puppetlabs.com/puppetlabs/firewall).
+# puppet-beegfs
 
 ## Usage
 
-Put the classes, types, and resources for customizing, configuring, and doing the fancy stuff with your module here. 
+You need one mgmtd server:
 
-## Reference
+```puppet
+class { 'beegfs::mgmtd': }
+```
 
-Here, list the classes, types, providers, facts, etc contained in your module. This section should include all of the under-the-hood workings of your module so people know what the module is touching on their system but don't need to mess with things. (We are working on automating this section!)
+And probably many storage and meta servers:
+```puppet
+class { 'beegfs::meta':
+  mgmtd_host => 192.168.1.1,
+}
+class { 'beegfs::storage':
+  mgmtd_host => 192.168.1.1,
+}
+```
 
-## Limitations
+defining a mount
+```puppet
+beegfs::mount{ 'mnt-share':
+  cfg => '/etc/beegfs/beegfs-client.conf',
+  mnt   => '/mnt/share',
+  user  => 'beegfs',
+  group => 'beegfs',
+}
+```
 
-This is where you list OS compatibility, version compatibility, etc.
+### Interfaces
 
-## Development
+For meta and storage nodes you can specify interfaces for commutication. The passed argument must be an array.
 
-Since your module is awesome, other users will want to play with it. Let them know what the ground rules for contributing are.
+```puppet
+class { 'beegfs::meta':
+  mgmtd_host => 192.168.1.1,
+  interfaces => ['eth0', 'ib0'],
+}
+class { 'beegfs::storage':
+  mgmtd_host => 192.168.1.1,
+  interfaces => ['eth0', 'ib0']
+}
+```
 
-## Release Notes/Contributors/Etc **Optional**
+## Hiera support
 
-If you aren't using changelog, put your release notes here (though you should consider using changelog). You may also add any additional sections you feel are necessary or important to include here. Please use the `## ` header. 
+All configuration could be specified in Hiera config files. Some settings
+are shared between all components, like:
+
+```
+beegfs::version: '2015.03.r9.debian7'
+```
+
+for module specific setting use correct namespace, e.g.:
+```
+beegfs::meta::interfaces:
+  - 'eth0'
+```
+
+
+## License
+
+Apache License, Version 2.0
