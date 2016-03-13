@@ -14,7 +14,7 @@ class beegfs::client (
   $mgmtd_tcp_port  = 8008,
   $mgmtd_udp_port  = 8008,
   $major_version   = $beegfs::major_version,
-  $kernel_packages = $beegfs::parms::kernel_packages,
+  $kernel_packages = $beegfs::params::kernel_packages,
 ) inherits beegfs {
 
   require beegfs::install
@@ -22,8 +22,7 @@ class beegfs::client (
 
   anchor { 'beegfs::kernel_dev' : }
 
-
-  ensure_resource('package', $kernel_packages, {
+  ensure_packages($kernel_packages, {
       'ensure' => $kernel_ensure,
       'before' => Anchor['beegfs::kernel_dev']
     }

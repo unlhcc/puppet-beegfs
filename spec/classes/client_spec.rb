@@ -78,7 +78,7 @@ describe 'beegfs::client' do
     }}
 
     # kernel packages have different versions than beegfs
-    it { should contain_package('kernel-devel').with({
+    it { is_expected.to contain_package('kernel-devel').with({
       'ensure' => '12.036+nmu3'
     }) }
   end
@@ -89,10 +89,10 @@ describe 'beegfs::client' do
       :package_ensure => version
     }}
 
-    it { should contain_package('beegfs-client').with({
+    it { is_expected.to contain_package('beegfs-client').with({
       'ensure' => version
     }) }
-    it { should contain_package('kernel-package').with({
+    it { should contain_package('linux-headers-amd64').with({
       'ensure' => 'present'
     }) }
     it { should contain_package('beegfs-helperd').with({

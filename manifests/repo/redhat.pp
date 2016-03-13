@@ -7,8 +7,4 @@ class beegfs::repo::redhat (
   $major_version  = $beegfs::major_version,
 ) {
 
-  package { 'beegfs-utils':
-    ensure  => $package_ensure,
-  }
-
 }
