@@ -13,8 +13,8 @@
 class beegfs (
   $manage_repo                   = true,
   $mgmtd_host                    = 'localhost',
-  $meta_directory                = '/meta',
-  $storage_directory             = '/storage',
+  $meta_directory                = '/srv/beegfs/meta',
+  $storage_directory             = '/srv/beegfs/storage',
   $client_auto_remove_mins       = 0,
   $meta_space_low_limit          = '5G',
   $meta_space_emergency_limit    = '3G',
