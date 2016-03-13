@@ -10,7 +10,7 @@ define beegfs::mount (
   $mounts_cfg = '/etc/beegfs/beegfs-mounts.conf',
 ) {
 
-  include beegfs::client
+  require beegfs::client
 
   file { $mnt:
     ensure => directory,
