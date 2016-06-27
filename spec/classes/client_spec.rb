@@ -19,7 +19,7 @@ describe 'beegfs::client' do
 
   it { is_expected.to contain_class('beegfs::client') }
 
-  shared_examples 'debian_beegfs-client' do |os, codename|
+  shared_examples 'debian_beegfs-client' do |os, codename, headers|
     let(:facts) {{
       :operatingsystem => os,
       :osfamily => 'Debian',
@@ -27,7 +27,7 @@ describe 'beegfs::client' do
       :lsbdistid => 'Debian',
     }}
     it { is_expected.to contain_package('beegfs-client') }
-    it { is_expected.to contain_package('linux-headers-amd64') }
+    it { is_expected.to contain_package(headers) }
     it { is_expected.to contain_package('beegfs-helperd') }
     it { is_expected.to contain_package('beegfs-client') }
 
@@ -61,9 +61,9 @@ describe 'beegfs::client' do
     let(:user) { 'beegfs' }
     let(:group) { 'beegfs' }
 
-    it_behaves_like 'debian_beegfs-client', 'Debian', 'squeeze'
-    it_behaves_like 'debian_beegfs-client', 'Debian', 'wheezy'
-    it_behaves_like 'debian_beegfs-client', 'Ubuntu', 'precise'
+    it_behaves_like 'debian_beegfs-client', 'Debian', 'squeeze', 'linux-headers-amd64'
+    it_behaves_like 'debian_beegfs-client', 'Debian', 'wheezy', 'linux-headers-amd64'
+    it_behaves_like 'debian_beegfs-client', 'Ubuntu', 'precise', 'linux-headers-generic'
   end
 
   context 'on RedHat' do
