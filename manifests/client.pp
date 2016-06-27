@@ -17,7 +17,7 @@ class beegfs::client (
   $kernel_packages = $beegfs::params::kernel_packages,
 ) inherits beegfs {
 
-  require beegfs::install
+  require ::beegfs::install
   validate_array($interfaces)
 
   anchor { 'beegfs::kernel_dev' : }

@@ -18,7 +18,7 @@ class beegfs::storage (
   $major_version     = $beegfs::major_version,
 ) inherits ::beegfs {
 
-  require beegfs::install
+  require ::beegfs::install
   validate_array($interfaces)
 
   package { 'beegfs-storage':

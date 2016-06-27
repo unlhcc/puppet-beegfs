@@ -20,8 +20,8 @@ class beegfs::mgmtd (
   $interfaces_file               = '/etc/beegfs/interfaces.mgmtd',
   $major_version                 = $beegfs::major_version,
   ) inherits ::beegfs {
-  require beegfs
-  require beegfs::install
+  require ::beegfs
+  require ::beegfs::install
   validate_array($interfaces)
 
   package { 'beegfs-mgmtd':
