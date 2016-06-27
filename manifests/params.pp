@@ -7,9 +7,9 @@ class beegfs::params {
 
   case $::osfamily {
     'Debian': {
-      $kernel_packages = ['linux-headers-amd64']
       case $::operatingsystem {
         'Debian': {
+          $kernel_packages = ['linux-headers-amd64']
           case $::lsbdistcodename {
             'wheezy': {
               $release = 'deb7'
@@ -26,6 +26,7 @@ class beegfs::params {
           }
         }
         'Ubuntu': {
+          $kernel_packages = ['linux-headers-generic']
           case $::lsbdistcodename {
             'precise': {
               $release = 'deb7'
