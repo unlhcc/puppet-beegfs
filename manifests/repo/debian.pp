@@ -28,6 +28,7 @@ class beegfs::repo::debian (
             'deb' => true,
           },
           notify       => Exec['apt_update'],
+          before       => Anchor['beegfs::apt_repo'],
         }
       }
       default: {}
