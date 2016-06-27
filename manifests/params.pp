@@ -36,6 +36,9 @@ class beegfs::params {
             }
           }
         }
+        default: {
+          fail("Family: ${::osfamily} OS: ${::operatingsystem} is not supported yet") #"
+        }
       }
     }
     'RedHat': {
