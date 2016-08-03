@@ -10,6 +10,8 @@ class beegfs::client (
   $interfaces      = ['eth0'],
   $interfaces_file = '/etc/beegfs/interfaces.client',
   $log_level       = 3,
+  $client_udp      = 8004,
+  $helperd_tcp     = 8006,
   $mgmtd_host      = hiera('beegfs::mgmtd_host', $beegfs::mgmtd_host),
   $mgmtd_tcp_port  = 8008,
   $mgmtd_udp_port  = 8008,

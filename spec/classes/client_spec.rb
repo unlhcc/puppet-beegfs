@@ -176,4 +176,23 @@ describe 'beegfs::client' do
       ).with_content(/connMgmtdPortUDP(\s+)=(\s+)1011/)
     end
   end
+
+  context 'allow changing client ports' do
+    let(:params) {{
+      :client_udp  => 8010,
+      :helperd_tcp => 8011,
+    }}
+
+    it do
+      is_expected.to contain_file(
+        '/etc/beegfs/beegfs-client.conf'
+      ).with_content(/connClientPortUDP(\s+)=(\s+)8010/)
+    end
+
+    it do
+      is_expected.to contain_file(
+        '/etc/beegfs/beegfs-client.conf'
+      ).with_content(/connHelperdPortTCP(\s+)=(\s+)8011/)
+    end
+  end
 end
