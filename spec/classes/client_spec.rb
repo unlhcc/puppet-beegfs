@@ -141,7 +141,7 @@ describe 'beegfs::client' do
       :log_level => 5,
     }}
 
-    it { should contain_file(
+    it { is_expected.to contain_file(
       '/etc/beegfs/beegfs-client.conf'
     ).with_content(/logLevel(\s+)=(\s+)5/) }
   end
@@ -152,10 +152,28 @@ describe 'beegfs::client' do
     }}
 
     it {
-      should contain_file(
+      is_expected.to contain_file(
         '/etc/beegfs/beegfs-client.conf'
       ).with_content(/sysMgmtdHost(\s+)=(\s+)192.168.1.1/)
     }
   end
 
+  context 'allow changing mgmtd port' do
+    let(:params) {{
+      :mgmtd_tcp_port => 1010,
+      :mgmtd_udp_port => 1011,
+    }}
+
+    it do
+      is_expected.to contain_file(
+        '/etc/beegfs/beegfs-client.conf'
+      ).with_content(/connMgmtdPortTCP(\s+)=(\s+)1010/)
+    end
+
+    it do
+      is_expected.to contain_file(
+        '/etc/beegfs/beegfs-client.conf'
+      ).with_content(/connMgmtdPortUDP(\s+)=(\s+)1011/)
+    end
+  end
 end

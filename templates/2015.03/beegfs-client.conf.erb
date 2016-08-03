@@ -24,8 +24,8 @@ sysMgmtdHost                  = <%= @mgmtd_host %>
 connAuthFile                  =
 connClientPortUDP             = 8004
 connHelperdPortTCP            = 8006
-connMgmtdPortTCP              = 8008
-connMgmtdPortUDP              = 8008
+connMgmtdPortTCP              = <%= @mgmtd_tcp_port %>
+connMgmtdPortUDP              = <%= @mgmtd_udp_port %>
 connPortShift                 = 0
 
 connCommRetrySecs             = 600
