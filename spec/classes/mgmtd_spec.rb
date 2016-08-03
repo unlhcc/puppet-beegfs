@@ -1,44 +1,54 @@
 require 'spec_helper'
 
 describe 'beegfs::mgmtd' do
-  let(:facts) {{
+  let(:facts) do
+    {
     :operatingsystem => 'Debian',
     :osfamily => 'Debian',
     :lsbdistcodename => 'wheezy',
     :lsbdistid => 'Debian',
-  }}
+  }
+  end
 
   let(:user) { 'beegfs' }
   let(:group) { 'beegfs' }
 
-  let(:params) {{
+  let(:params) do
+    {
     :user  => user,
     :group => group,
     :major_version => '2015.03',
-  }}
+  }
+  end
 
   shared_examples 'debian-mgmtd' do |os, codename|
-    let(:facts) {{
+    let(:facts) do
+      {
       :operatingsystem => os,
       :osfamily => 'Debian',
       :lsbdistcodename => codename,
       :lsbdistid => 'Debian',
-    }}
+    }
+    end
 
-    let(:params) {{
+    let(:params) do
+      {
       :user  => user,
       :group => group,
       :major_version => '2015.03',
-    }}
+    }
+    end
     it { should contain_package('beegfs-mgmtd') }
     it { should contain_package('beegfs-utils') }
 
     it { should contain_class('beegfs::repo::debian') }
 
-    it { should contain_service('beegfs-mgmtd').with(
+    it do
+      should contain_service('beegfs-mgmtd').with(
         :ensure => 'running',
         :enable => true
-    ) }
+      )
+    end
   end
 
   context 'on debian-like system' do
@@ -48,61 +58,77 @@ describe 'beegfs::mgmtd' do
 
   context 'with given version' do
     let(:version) { '2012.10.r8.debian7' }
-    let(:params) {{
+    let(:params) do
+      {
       :package_ensure => version,
       :user           => user,
       :group          => group,
       :major_version => '2015.03',
-    }}
+    }
+    end
 
-    it { should contain_package('beegfs-mgmtd').with({
+    it do
+      should contain_package('beegfs-mgmtd').with({
       'ensure' => version
-    }) }
+    })
+    end
   end
 
-  it { should contain_file('/etc/beegfs/interfaces.mgmtd').with({
+  it do
+    should contain_file('/etc/beegfs/interfaces.mgmtd').with({
     'ensure'  => 'present',
     'owner'   => user,
     'group'   => group,
     'mode'    => '0755',
-  }).with_content(/eth0/) }
+  }).with_content(/eth0/)
+  end
 
   context 'interfaces file' do
-    let(:params) {{
+    let(:params) do
+      {
       :interfaces      => ['eth0', 'ib0'],
       :interfaces_file => '/etc/beegfs/mgmtd.itf',
       :user            => user,
       :group           => group,
       :major_version   => '2015.03',
-    }}
+    }
+    end
 
-    it { should contain_file('/etc/beegfs/mgmtd.itf').with({
+    it do
+      should contain_file('/etc/beegfs/mgmtd.itf').with({
       'ensure'  => 'present',
       'owner'   => user,
       'group'   => group,
       'mode'    => '0755',
-    }).with_content(/ib0/) }
+    }).with_content(/ib0/)
+    end
 
 
-    it { should contain_file(
+    it do
+      should contain_file(
         '/etc/beegfs/beegfs-mgmtd.conf'
       ).with_content(/connInterfacesFile(\s+)=(\s+)\/etc\/beegfs\/mgmtd.itf/)
-    }
+    end
   end
 
-  it { should contain_file(
-    '/etc/beegfs/beegfs-mgmtd.conf'
-  ).with_content(/logLevel(\s+)=(\s+)2/) }
+  it do
+    should contain_file(
+      '/etc/beegfs/beegfs-mgmtd.conf'
+    ).with_content(/logLevel(\s+)=(\s+)2/)
+  end
 
   context 'changing log level' do
-    let(:params) {{
+    let(:params) do
+      {
       :log_level => 5,
       :major_version => '2015.03',
-    }}
+    }
+    end
 
-    it { should contain_file(
-      '/etc/beegfs/beegfs-mgmtd.conf'
-    ).with_content(/logLevel(\s+)=(\s+)5/) }
+    it do
+      should contain_file(
+        '/etc/beegfs/beegfs-mgmtd.conf'
+      ).with_content(/logLevel(\s+)=(\s+)5/)
+    end
   end
-
 end
