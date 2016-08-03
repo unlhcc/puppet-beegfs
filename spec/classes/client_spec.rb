@@ -92,18 +92,18 @@ describe 'beegfs::client' do
     it { is_expected.to contain_package('beegfs-client').with({
       'ensure' => version
     }) }
-    it { should contain_package('linux-headers-amd64').with({
+    it { is_expected.to contain_package('linux-headers-amd64').with({
       'ensure' => 'present'
     }) }
-    it { should contain_package('beegfs-helperd').with({
+    it { is_expected.to contain_package('beegfs-helperd').with({
       'ensure' => version
     }) }
-    it { should contain_package('beegfs-client').with({
+    it { is_expected.to contain_package('beegfs-client').with({
       'ensure' => version
     }) }
   end
 
-  it { should contain_file('/etc/beegfs/interfaces.client').with({
+  it { is_expected.to contain_file('/etc/beegfs/interfaces.client').with({
     'ensure'  => 'present',
     'owner'   => user,
     'group'   => group,
@@ -118,7 +118,7 @@ describe 'beegfs::client' do
       :group           => group,
     }}
 
-    it { should contain_file('/etc/beegfs/client.itf').with({
+    it { is_expected.to contain_file('/etc/beegfs/client.itf').with({
       'ensure'  => 'present',
       'owner'   => user,
       'group'   => group,
@@ -126,13 +126,13 @@ describe 'beegfs::client' do
     }).with_content(/ib0/) }
 
 
-    it { should contain_file(
+    it { is_expected.to contain_file(
         '/etc/beegfs/beegfs-client.conf'
       ).with_content(/connInterfacesFile(\s+)=(\s+)\/etc\/beegfs\/client.itf/)
     }
   end
 
-  it { should contain_file(
+  it { is_expected.to contain_file(
     '/etc/beegfs/beegfs-client.conf'
   ).with_content(/logLevel(\s+)=(\s+)3/) }
 
