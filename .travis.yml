@@ -1,12 +1,11 @@
 ---
-sudo: false
+sudo: required
 language: ruby
 bundler_args: --without development system_tests
-before_install: rm Gemfile.lock || true
-addons:
-  apt:
-    packages:
-      lsb-release
+before_install:
+  - sudo apt-get update -q
+  - sudo apt-get install -y lsb-release
+  - rm Gemfile.lock || true
 rvm:
   - 1.9.3
   - 2.0.0
@@ -14,8 +13,6 @@ rvm:
 script: bundle exec rake test
 cache:
   - bundler
-  - directories:
-    - $HOME/librarian-puppet
 env:
   - PUPPET_VERSION="~> 2.7.0"
   - PUPPET_VERSION="~> 3.2.0"
