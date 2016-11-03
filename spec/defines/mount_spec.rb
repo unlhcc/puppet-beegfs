@@ -16,6 +16,8 @@ describe 'beegfs::mount' do
     {
     :cfg   => '/etc/beegfs/beegfs-clients.conf',
     :mnt   => '/mnt/share',
+    :user  => 'root',
+    :group => 'root',
   }
   end
 

@@ -7,6 +7,7 @@ describe 'beegfs::client' do
     :osfamily => 'Debian',
     :lsbdistcodename => 'wheezy',
     :lsbdistid => 'Debian',
+    :operatingsystemmajrelease => '7',
   }
   end
 
@@ -85,6 +86,7 @@ describe 'beegfs::client' do
       :osfamily => 'RedHat',
       :lsbdistcodename => '6',
       :lsbdistid => 'RedHat',
+      :operatingsystemmajrelease => '6',
     }
     end
     let(:params) do

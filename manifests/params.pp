@@ -53,6 +53,7 @@ class beegfs::params {
           'gpgkey'  => 'http://www.beegfs.com/release/beegfs_2015.03/gpg/RPM-GPG-KEY-beegfs',
         },
       }
+      $release = 'redhat'
     }
     default: {
       fail("Family: ${::osfamily} OS: ${::operatingsystem} is not supported yet") #"
