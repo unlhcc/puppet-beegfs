@@ -5,9 +5,9 @@
 #
 # This class file is not called directly
 class beegfs::repo(
+  $release,
   $manage_repo    = $beegfs::manage_repo,
   $package_source = $beegfs::package_source,
-  $release,
 ) inherits beegfs {
   anchor { 'beegfs::repo::begin': }
   anchor { 'beegfs::repo::end': }

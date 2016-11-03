@@ -1,10 +1,10 @@
 # Class: beegfs::repo::debian
 
 class beegfs::repo::debian (
+  $release,
   $manage_repo    = true,
   $package_source = $beegfs::package_source,
   $major_version  = $beegfs::major_version,
-  $release,
 ) {
 
   anchor { 'beegfs::apt_repo' : }
