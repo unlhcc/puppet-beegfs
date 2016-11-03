@@ -31,8 +31,11 @@ class beegfs::params {
             'precise': {
               $release = 'deb7'
             }
+            'trusty','xenial': {
+              $release = 'deb8'
+            }
             default: {
-              $release = 'deb7'
+              $release = 'deb8'
             }
           }
         }
