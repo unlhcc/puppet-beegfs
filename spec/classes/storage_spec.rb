@@ -9,6 +9,7 @@ describe 'beegfs::storage' do
     :osfamily => 'Debian',
     :lsbdistcodename => 'wheezy',
     :lsbdistid => 'Debian',
+    :puppetversion => Puppet.version,
   }
   end
 
@@ -32,6 +33,7 @@ describe 'beegfs::storage' do
       :osfamily => 'Debian',
       :lsbdistcodename => codename,
       :lsbdistid => 'Debian',
+      :puppetversion => Puppet.version,
     }
     end
 

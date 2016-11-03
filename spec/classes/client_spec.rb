@@ -8,6 +8,7 @@ describe 'beegfs::client' do
     :lsbdistcodename => 'wheezy',
     :lsbdistid => 'Debian',
     :operatingsystemmajrelease => '7',
+    :puppetversion => Puppet.version,
   }
   end
 
@@ -30,6 +31,7 @@ describe 'beegfs::client' do
       :osfamily => 'Debian',
       :lsbdistcodename => codename,
       :lsbdistid => 'Debian',
+      :puppetversion => Puppet.version,
     }
     end
     it { is_expected.to contain_package('beegfs-client') }
@@ -87,6 +89,7 @@ describe 'beegfs::client' do
       :lsbdistcodename => '6',
       :lsbdistid => 'RedHat',
       :operatingsystemmajrelease => '6',
+      :puppetversion => Puppet.version,
     }
     end
     let(:params) do

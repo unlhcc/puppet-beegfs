@@ -7,6 +7,7 @@ describe 'beegfs::meta' do
     :osfamily => 'Debian',
     :lsbdistcodename => 'wheezy',
     :lsbdistid => 'Debian',
+    :puppetversion => Puppet.version,
   }
   end
 
@@ -31,6 +32,7 @@ describe 'beegfs::meta' do
       :osfamily => 'Debian',
       :lsbdistcodename => codename,
       :lsbdistid => 'Debian',
+      :puppetversion => Puppet.version,
     }
     end
     it { should contain_package('beegfs-meta') }
@@ -85,6 +87,7 @@ describe 'beegfs::meta' do
       :osfamily => 'Debian',
       :lsbdistcodename => 'wheezy',
       :lsbdistid => 'Debian',
+      :puppetversion => Puppet.version,
     }
     end
     let(:version) { '2015.03.r8.debian7' }
@@ -169,7 +172,7 @@ describe 'beegfs::meta' do
     end
 
     it do
-      should contain_file(
+      is_expected.to contain_file(
         '/etc/beegfs/beegfs-meta.conf'
       ).with_content(/sysMgmtdHost(\s+)=(\s+)192.168.1.1/)
     end
