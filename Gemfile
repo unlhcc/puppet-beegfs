@@ -2,17 +2,27 @@ source "https://rubygems.org"
 
 group :test do
   gem "rake"
-  gem "puppet", ENV['PUPPET_GEM_VERSION'] || '~> 3.8.0'
-  gem "rspec", '< 3.2.0'
+  gem "puppet", ENV['PUPPET_VERSION'] || ['> 3.3.0','< 5.0']
   gem "rspec-puppet", :git => 'https://github.com/rodjek/rspec-puppet.git'
   gem "puppetlabs_spec_helper"
   gem "metadata-json-lint"
   gem "rspec-puppet-facts"
-  gem 'rubocop', '0.33.0'
   gem 'simplecov', '>= 0.11.0'
   gem 'simplecov-console'
   gem 'librarian-puppet'
-  gem 'listen', '< 3.0'
+  # newer versions require ruby 2.2
+  if RUBY_VERSION < "2.2.0"
+    gem 'listen', '~> 3.0.0'
+  end
+  if RUBY_VERSION < "2.0.0"
+    gem 'json', '< 2.0' # newer versions requires at least ruby 2.0
+    gem 'json_pure', '< 2.0.0'
+    gem 'fog-google', '< 0.1.1'
+    gem 'google-api-client', '< 0.9'
+    gem 'rubocop','~> 0.33.0'
+  else
+    gem 'rubocop'
+  end
 
   gem "puppet-lint-absolute_classname-check"
   gem "puppet-lint-leading_zero-check"
@@ -31,7 +41,11 @@ group :development do
 end
 
 group :system_tests do
-  gem "beaker"
+  if RUBY_VERSION >= '2.2.5'
+    gem 'beaker'
+  else
+    gem 'beaker', '< 3'
+  end
   gem "beaker-rspec"
   gem "beaker-puppet_install_helper"
 end
