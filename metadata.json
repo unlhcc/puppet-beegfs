@@ -1,6 +1,6 @@
 {
   "name": "deric-beegfs",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "author": "deric",
   "summary": "Manage BeeGFS parallel filesystem installations",
   "license": "Apache-2.0",
