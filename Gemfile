@@ -19,7 +19,7 @@ group :test do
     gem 'json_pure', '< 2.0.0'
     gem 'fog-google', '< 0.1.1'
     gem 'google-api-client', '< 0.9'
-    gem 'rubocop','~> 0.33.0'
+    gem 'rubocop','> 0.33'
     gem 'nokogiri', '< 1.7.0'
     gem 'public_suffix', '< 1.5.0'
   else
