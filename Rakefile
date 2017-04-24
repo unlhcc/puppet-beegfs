@@ -7,13 +7,15 @@ require 'puppet/vendor/semantic/lib/semantic' unless Puppet.version.to_f < 3.6
 require 'puppet-lint/tasks/puppet-lint'
 require 'puppet-syntax/tasks/puppet-syntax'
 require 'metadata-json-lint/rake_task'
-require 'rubocop/rake_task'
 
 # These gems aren't always present, for instance
 # on Travis with --without development
-begin
+# blacksmith does not support ruby 1.8.7 anymore
+if ENV['RAKE_ENV'] != 'ci' && RUBY_VERSION.split('.')[0, 3].join.to_i > 187
+  # rubocop is not needed on travis (requires ruby >= 2.0)
+  require 'rubocop/rake_task'
+  RuboCop::RakeTask.new
   require 'puppet_blacksmith/rake_tasks'
-rescue LoadError # rubocop:disable Lint/HandleExceptions
 end
 
 RuboCop::RakeTask.new
