@@ -18,8 +18,6 @@ if ENV['RAKE_ENV'] != 'ci' && RUBY_VERSION.split('.')[0, 3].join.to_i > 187
   require 'puppet_blacksmith/rake_tasks'
 end
 
-RuboCop::RakeTask.new
-
 exclude_paths = [
   "bundle/**/*",
   "pkg/**/*",
