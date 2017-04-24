@@ -21,7 +21,7 @@ group :test do
     gem 'google-api-client', '< 0.9'
     gem 'rubocop','~> 0.33.0'
     gem 'nokogiri', '< 1.7.0'
-    gem 'public_suffix', '< 2.0.5'
+    gem 'public_suffix', '< 1.5.0'
   else
     gem 'rubocop'
   end
