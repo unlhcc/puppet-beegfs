@@ -14,7 +14,7 @@ define beegfs::mount (
     ensure => directory,
     owner  => $user,
     group  => $group,
-    mode   => '0755',
+    mode   => '0644',
   }
 
   concat::fragment { $mnt:
