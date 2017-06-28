@@ -34,7 +34,7 @@ class beegfs::client (
     ensure  => present,
     owner   => $user,
     group   => $group,
-    mode    => '0755',
+    mode    => '0644',
     content => template("beegfs/${major_version}/beegfs-helperd.conf.erb"),
   }
 
