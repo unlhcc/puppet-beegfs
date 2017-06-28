@@ -46,7 +46,7 @@ logLevel                     = <%= @log_level %>
 logNoDate                    = false
 logNumLines                  = 50000
 logNumRotatedFiles           = 5
-logStdFile                   = /var/log/beegfs-meta.log
+logStdFile                   = <%= @log_dir %>/beegfs-meta.log
 
 runDaemonized                = true
 
