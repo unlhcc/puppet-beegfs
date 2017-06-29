@@ -33,5 +33,6 @@ class beegfs::repo::debian (
       }
       default: {}
     }
+    Class['apt::update'] -> Package['beegfs-utils']
   }
 }
