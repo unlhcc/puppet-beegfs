@@ -5,7 +5,6 @@ group :test do
   gem "puppet", ENV['PUPPET_VERSION'] || ['> 3.3.0','< 5.0']
   gem "rspec-puppet", :git => 'https://github.com/rodjek/rspec-puppet.git'
   gem "puppetlabs_spec_helper"
-  gem "metadata-json-lint"
   gem "rspec-puppet-facts"
   gem 'simplecov', '>= 0.11.0'
   gem 'simplecov-console'
@@ -21,6 +20,7 @@ group :test do
     gem 'google-api-client', '< 0.9'
     gem 'nokogiri', '< 1.7.0'
     gem 'public_suffix', '< 1.5.0'
+    gem 'metadata-json-lint', '< 1.2.0', require: false
   end
 
   gem "puppet-lint-absolute_classname-check"
