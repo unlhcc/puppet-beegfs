@@ -45,7 +45,7 @@ logLevel                     = <%= @log_level %>
 logNoDate                    = false
 logNumLines                  = 50000
 logNumRotatedFiles           = 5
-logStdFile                   = /var/log/beegfs-storage.log
+logStdFile                   = <%= @log_dir %>/beegfs-storage.log
 
 quotaEnableEnforcement       = false
 
