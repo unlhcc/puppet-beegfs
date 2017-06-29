@@ -1,3 +1,4 @@
-YYYY-MM-DD Release 0.1.0
-- something you did
-- something else you did
+2017-06-29 Release 0.2.0
+- Config files for BeeGFS 6
+- Concat fix (#2)
+- Allow changing log directory (#3)
