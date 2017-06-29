@@ -40,7 +40,7 @@ class beegfs::mgmtd (
     ensure  => present,
     owner   => $user,
     group   => $group,
-    mode    => '0755',
+    mode    => '0644',
     content => template('beegfs/interfaces.erb'),
   }
 
