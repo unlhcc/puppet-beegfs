@@ -81,7 +81,7 @@ describe 'beegfs::mgmtd' do
     'ensure'  => 'present',
     'owner'   => user,
     'group'   => group,
-    'mode'    => '0755',
+    'mode'    => '0644',
   }).with_content(/eth0/)
   end
 
@@ -101,7 +101,7 @@ describe 'beegfs::mgmtd' do
       'ensure'  => 'present',
       'owner'   => user,
       'group'   => group,
-      'mode'    => '0755',
+      'mode'    => '0644',
     }).with_content(/ib0/)
     end
 
