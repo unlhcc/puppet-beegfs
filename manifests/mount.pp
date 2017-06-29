@@ -18,7 +18,6 @@ define beegfs::mount (
   }
 
   concat::fragment { $mnt:
-    ensure  => present,
     target  => $mounts_cfg,
     content => "${mnt} ${cfg}",
     require => File[$mnt],
