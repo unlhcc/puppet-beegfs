@@ -21,6 +21,8 @@ group :test do
     gem 'nokogiri', '< 1.7.0'
     gem 'public_suffix', '< 1.5.0'
     gem 'metadata-json-lint', '< 1.2.0', require: false
+  else
+    gem 'metadata-json-lint', require: false
   end
 
   gem "puppet-lint-absolute_classname-check"
