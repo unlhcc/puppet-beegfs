@@ -30,6 +30,14 @@ class beegfs::client (
     }
   )
 
+  file { '/etc/beegfs/beegfs-helperd.conf':
+    ensure  => present,
+    owner   => $user,
+    group   => $group,
+    mode    => '0644',
+    content => template("beegfs/${major_version}/beegfs-helperd.conf.erb"),
+  }
+
   file { $interfaces_file:
     ensure  => present,
     owner   => $user,
