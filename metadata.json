@@ -14,7 +14,7 @@
     },
     {
       "name": "puppetlabs-apt",
-      "version_requirement": ">= 2.1.0 <= 3.0.0"
+      "version_requirement": ">= 2.1.0 < 3.0.0"
     },
     {
       "name": "puppetlabs-concat",
@@ -26,7 +26,9 @@
       "operatingsystem": "Debian",
       "operatingsystemrelease": [
         "6",
-        "7"
+        "7",
+        "8",
+        "9"
       ]
     },
     {
