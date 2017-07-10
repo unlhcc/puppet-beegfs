@@ -177,4 +177,19 @@ describe 'beegfs::meta' do
       ).with_content(/sysMgmtdHost(\s+)=(\s+)192.168.1.1/)
     end
   end
+
+  context 'disable first run init' do
+    let(:params) do
+      {
+      :allow_first_run_init => false,
+      :major_version => '2015.03',
+    }
+    end
+
+    it do
+      is_expected.to contain_file(
+        '/etc/beegfs/beegfs-meta.conf'
+      ).with_content(/storeAllowFirstRunInit(\s+)=(\s+)false/)
+    end
+  end
 end

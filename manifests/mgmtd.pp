@@ -5,6 +5,7 @@
 class beegfs::mgmtd (
   $enable                        = true,
   $directory                     = '/srv/beegfs/mgmtd',
+  $allow_first_run_init          = true,
   $client_auto_remove_mins       = $beegfs::client_auto_remove_mins,
   $meta_space_low_limit          = $beegfs::meta_space_low_limit,
   $meta_space_emergency_limit    = $beegfs::meta_space_emergency_limit,
