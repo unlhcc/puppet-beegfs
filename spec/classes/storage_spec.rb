@@ -234,6 +234,21 @@ describe 'beegfs::storage' do
         ).with_content(/storeStorageDirectory(\s+)=(\s+)\/var\/storage1,\/var\/storage2/)
       end
     end
+
+    context 'disable first run init' do
+      let(:params) do
+        {
+        :allow_first_run_init => false,
+        :major_version => major_version,
+      }
+      end
+
+      it do
+        is_expected.to contain_file(
+          '/etc/beegfs/beegfs-storage.conf'
+        ).with_content(/storeAllowFirstRunInit(\s+)=(\s+)false/)
+      end
+    end
   end
 
   context 'with beegfs' do
