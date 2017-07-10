@@ -1,4 +1,4 @@
-[UNRELEASED] Release 0.3.0
+2017-07-10 Release 0.3.0
 - Autobuild configuration ([#7](https://github.com/deric/puppet-beegfs/pull/7))
 - Support multiple storage directories ([#8](https://github.com/deric/puppet-beegfs/pull/8))
 - Allow to set "storeAllowFirstRunInit" for meta, mgmtd and storage.
