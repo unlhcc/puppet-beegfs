@@ -3,17 +3,18 @@
 # This module manages beegfs meta service
 #
 class beegfs::meta (
-  $enable          = true,
-  $meta_directory  = $beegfs::meta_directory,
-  $mgmtd_host      = $beegfs::mgmtd_host,
-  $log_dir         = $beegfs::log_dir,
-  $log_level       = 3,
-  $user            = $beegfs::user,
-  $group           = $beegfs::group,
-  $package_ensure  = hiera('beegfs::package_ensure', $beegfs::package_ensure),
-  $interfaces      = ['eth0'],
-  $interfaces_file = '/etc/beegfs/interfaces.meta',
-  $major_version   = $beegfs::major_version,
+  $enable               = true,
+  $meta_directory       = $beegfs::meta_directory,
+  $allow_first_run_init = true,
+  $mgmtd_host           = $beegfs::mgmtd_host,
+  $log_dir              = $beegfs::log_dir,
+  $log_level            = 3,
+  $user                 = $beegfs::user,
+  $group                = $beegfs::group,
+  $package_ensure       = hiera('beegfs::package_ensure', $beegfs::package_ensure),
+  $interfaces           = ['eth0'],
+  $interfaces_file      = '/etc/beegfs/interfaces.meta',
+  $major_version        = $beegfs::major_version,
 ) inherits ::beegfs {
 
   require ::beegfs::install

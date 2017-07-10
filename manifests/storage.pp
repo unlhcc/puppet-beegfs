@@ -3,19 +3,20 @@
 # This module manages beegfs storage service
 #
 class beegfs::storage (
-  $enable            = true,
-  $storage_directory = $beegfs::storage_directory,
-  $mgmtd_host        = $beegfs::mgmtd_host,
-  $log_dir           = $beegfs::log_dir,
-  $log_level         = 3,
-  $user              = $beegfs::user,
-  $group             = $beegfs::group,
-  $package_ensure    = $beegfs::package_ensure,
-  $interfaces        = ['eth0'],
-  $interfaces_file   = '/etc/beegfs/interfaces.storage',
-  $mgmtd_tcp_port    = 8008,
-  $mgmtd_udp_port    = 8008,
-  $major_version     = $beegfs::major_version,
+  $enable               = true,
+  $storage_directory    = $beegfs::storage_directory,
+  $allow_first_run_init = true,
+  $mgmtd_host           = $beegfs::mgmtd_host,
+  $log_dir              = $beegfs::log_dir,
+  $log_level            = 3,
+  $user                 = $beegfs::user,
+  $group                = $beegfs::group,
+  $package_ensure       = $beegfs::package_ensure,
+  $interfaces           = ['eth0'],
+  $interfaces_file      = '/etc/beegfs/interfaces.storage',
+  $mgmtd_tcp_port       = 8008,
+  $mgmtd_udp_port       = 8008,
+  $major_version        = $beegfs::major_version,
 ) inherits ::beegfs {
 
   require ::beegfs::install

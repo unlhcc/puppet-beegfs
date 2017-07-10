@@ -17,7 +17,7 @@
 sysMgmtdHost                 = <%= @mgmtd_host %>
 
 storeStorageDirectory        = <%= @storage_directory.respond_to?("join") ? @storage_directory.join(",") : @storage_directory %>
-storeAllowFirstRunInit       = true
+storeAllowFirstRunInit       = <%= @allow_first_run_init %>
 
 
 #
