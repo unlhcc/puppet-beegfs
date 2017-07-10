@@ -72,6 +72,10 @@ beegfs::meta::interfaces:
   - 'eth0'
 ```
 
+## Requirements
+
+ * Ruby 1.9 or newer
+ * at least Puppet 3.8 and < 5.0
 
 ## License
 
