@@ -22,14 +22,27 @@ class beegfs::storage (
   require ::beegfs::install
   validate_array($interfaces)
 
-  package { 'beegfs-storage':
-    ensure => $package_ensure,
+  if $storage_directory.is_a(String) {
+    $storage_directory.split(',').each |$d| {
+      file { $d:
+        ensure => directory,
+        owner  => $user,
+        group  => $group,
+        before => Package['beegfs-storage'],
+      }
+    }
+  } else {
+    # with an array multiple directories are created
+    file { $storage_directory:
+      ensure => directory,
+      owner  => $user,
+      group  => $group,
+      before => Package['beegfs-storage'],
+    }
   }
 
-  file { $storage_directory:
-    ensure => directory,
-    owner  => $user,
-    group  => $group,
+  package { 'beegfs-storage':
+    ensure => $package_ensure,
   }
 
   file { $interfaces_file:
