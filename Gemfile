@@ -4,11 +4,14 @@ group :test do
   gem "rake"
   gem "puppet", ENV['PUPPET_VERSION'] || ['> 3.3.0','< 5.0']
   gem "rspec-puppet", :git => 'https://github.com/rodjek/rspec-puppet.git'
-  gem "puppetlabs_spec_helper"
   gem "rspec-puppet-facts"
   gem 'simplecov', '>= 0.11.0'
   gem 'simplecov-console'
   gem 'librarian-puppet'
+  if ENV['PUPPET_VERSION'] and ENV['PUPPET_VERSION'] < '4.0'
+    gem 'semantic_puppet'
+  end
+  gem 'puppetlabs_spec_helper'
   # newer versions require ruby 2.2
   if RUBY_VERSION < "2.2.0"
     gem 'listen', '~> 3.0.0'
@@ -40,7 +43,7 @@ group :development do
   gem "puppet-blacksmith"
   gem "guard-rake"
   if RUBY_VERSION < "2.0.0"
-    gem 'rubocop','< 0.48'
+    gem 'rubocop','< 0.42'
   else
     gem 'rubocop'
   end
