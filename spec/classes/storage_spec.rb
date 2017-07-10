@@ -37,9 +37,9 @@ describe 'beegfs::storage' do
     }
     end
 
-    it { should contain_package('beegfs-utils') }
+    it { is_expected.to contain_package('beegfs-utils') }
     it do
-      should contain_service('beegfs-storage').with(
+      is_expected.to contain_service('beegfs-storage').with(
         :ensure => 'running',
         :enable => true
       )
@@ -87,107 +87,157 @@ describe 'beegfs::storage' do
     it_behaves_like 'debian-storage', 'Ubuntu', 'precise'
   end
 
-  context 'with given version' do
-    let(:version) { '2012.10.r8.debian7' }
+  shared_examples 'beegfs-version' do |major_version|
+
+    let(:user) { 'beegfs' }
+    let(:group) { 'beegfs' }
+
     let(:params) do
-      {
-      :package_ensure => version,
-      :major_version  => '2015.03',
+    {
+      'user'  => user,
+      'group' => group,
+      :major_version => major_version,
+      :storage_directory => '/srv/beefgs/storage'
     }
     end
 
-    it do
-      should contain_package('beegfs-storage').with({
-      'ensure' => version
-    })
-    end
-  end
+    context 'with given version' do
+      let(:version) { '2012.10.r8.debian7' }
+      let(:params) do
+        {
+        :package_ensure => version,
+        :major_version  => major_version,
+      }
+      end
 
-  it do
-    should contain_file('/etc/beegfs/interfaces.storage').with({
-    'ensure'  => 'present',
-    'owner'   => user,
-    'group'   => group,
-    'mode'    => '0644',
-  }).with_content(/eth0/)
-  end
-
-  context 'interfaces file' do
-    let(:params) do
-      {
-      :interfaces      => ['eth0', 'ib0'],
-      :interfaces_file => '/etc/beegfs/store.itf',
-      :user            => user,
-      :group           => group,
-      :major_version   => '2015.03',
-    }
+      it do
+        is_expected.to contain_package('beegfs-storage').with({
+        'ensure' => version
+      })
+      end
     end
 
     it do
-      should contain_file('/etc/beegfs/store.itf').with({
+      is_expected.to contain_file('/etc/beegfs/interfaces.storage').with({
       'ensure'  => 'present',
       'owner'   => user,
       'group'   => group,
       'mode'    => '0644',
-    }).with_content(/ib0/)
+    }).with_content(/eth0/)
     end
 
+    context 'interfaces file' do
+      let(:params) do
+        {
+        :interfaces      => ['eth0', 'ib0'],
+        :interfaces_file => '/etc/beegfs/store.itf',
+        :user            => user,
+        :group           => group,
+        :major_version   => major_version,
+      }
+      end
 
-    it do
-      should contain_file(
-        '/etc/beegfs/beegfs-storage.conf'
-      ).with_content(/connInterfacesFile(\s+)=(\s+)\/etc\/beegfs\/store.itf/)
-    end
-  end
+      it do
+        is_expected.to contain_file('/etc/beegfs/store.itf').with({
+        'ensure'  => 'present',
+        'owner'   => user,
+        'group'   => group,
+        'mode'    => '0644',
+      }).with_content(/ib0/)
+      end
 
-  it do
-    should contain_file(
-      '/etc/beegfs/beegfs-storage.conf'
-    ).with_content(/logLevel(\s+)=(\s+)3/)
-  end
 
-  context 'changing log level' do
-    let(:params) do
-      {
-      :log_level => 5,
-      :major_version => '2015.03',
-    }
-    end
-
-    it do
-      should contain_file(
-        '/etc/beegfs/beegfs-storage.conf'
-      ).with_content(/logLevel(\s+)=(\s+)5/)
-    end
-  end
-
-  context 'set mgmtd host' do
-    let(:params) do
-      {
-      :mgmtd_host => 'mgmtd.beegfs.com',
-      :major_version => '2015.03',
-    }
+      it do
+        is_expected.to contain_file(
+          '/etc/beegfs/beegfs-storage.conf'
+        ).with_content(/connInterfacesFile(\s+)=(\s+)\/etc\/beegfs\/store.itf/)
+      end
     end
 
     it do
-      should contain_file(
+      is_expected.to contain_file(
         '/etc/beegfs/beegfs-storage.conf'
-      ).with_content(/sysMgmtdHost(\s+)=(\s+)mgmtd.beegfs.com/)
+      ).with_content(/logLevel(\s+)=(\s+)3/)
+    end
+
+    context 'changing log level' do
+      let(:params) do
+        {
+        :log_level => 5,
+        :major_version => major_version,
+      }
+      end
+
+      it do
+        is_expected.to contain_file(
+          '/etc/beegfs/beegfs-storage.conf'
+        ).with_content(/logLevel(\s+)=(\s+)5/)
+      end
+    end
+
+    context 'set mgmtd host' do
+      let(:params) do
+        {
+        :mgmtd_host => 'mgmtd.beegfs.com',
+        :major_version => major_version,
+      }
+      end
+
+      it do
+        is_expected.to contain_file(
+          '/etc/beegfs/beegfs-storage.conf'
+        ).with_content(/sysMgmtdHost(\s+)=(\s+)mgmtd.beegfs.com/)
+      end
+    end
+
+    context 'set mgmtd tcp port' do
+      let(:params) do
+        {
+        :mgmtd_tcp_port => 9009,
+        :major_version  => major_version,
+      }
+      end
+
+      it do
+        is_expected.to contain_file(
+          '/etc/beegfs/beegfs-storage.conf'
+        ).with_content(/connMgmtdPortTCP(\s+)=(\s+)9009/)
+      end
+    end
+
+    context 'pass storage directory as an array' do
+      let(:params) do
+        {
+        :storage_directory => ['/var/storage1','/var/storage2'],
+        :major_version => major_version,
+      }
+      end
+
+      it do
+        is_expected.to contain_file(
+          '/etc/beegfs/beegfs-storage.conf'
+        ).with_content(/storeStorageDirectory(\s+)=(\s+)\/var\/storage1,\/var\/storage2/)
+      end
+    end
+
+    context 'pass storage directory as a string' do
+      let(:params) do
+        {
+        :storage_directory => '/var/storage1,/var/storage2',
+        :major_version => major_version,
+      }
+      end
+
+      it do
+        is_expected.to contain_file(
+          '/etc/beegfs/beegfs-storage.conf'
+        ).with_content(/storeStorageDirectory(\s+)=(\s+)\/var\/storage1,\/var\/storage2/)
+      end
     end
   end
 
-  context 'set mgmtd tcp port' do
-    let(:params) do
-      {
-      :mgmtd_tcp_port => 9009,
-      :major_version  => '2015.03',
-    }
-    end
-
-    it do
-      should contain_file(
-        '/etc/beegfs/beegfs-storage.conf'
-      ).with_content(/connMgmtdPortTCP(\s+)=(\s+)9009/)
-    end
+  context 'with beegfs' do
+    it_behaves_like 'beegfs-version', '2015.03'
+    it_behaves_like 'beegfs-version', '6'
   end
 end
