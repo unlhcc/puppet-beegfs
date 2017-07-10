@@ -247,4 +247,26 @@ describe 'beegfs::client' do
       ).with_content(/connHelperdPortTCP(\s+)=(\s+)8011/)
     end
   end
+
+
+  context 'disable autobuild' do
+    let(:params) do
+      {
+      :autobuild      => false,
+      :autobuild_args => '-j16',
+    }
+    end
+
+    it do
+      is_expected.to contain_file(
+        '/etc/beegfs/beegfs-client-autobuild.conf'
+      ).with_content(/buildEnabled=false/)
+    end
+
+    it do
+      is_expected.to contain_file(
+        '/etc/beegfs/beegfs-client-autobuild.conf'
+      ).with_content(/buildArgs=-j16/)
+    end
+  end
 end
