@@ -35,20 +35,20 @@ describe 'beegfs::meta' do
       :puppetversion => Puppet.version,
     }
     end
-    it { should contain_package('beegfs-meta') }
-    it { should contain_package('beegfs-utils') }
+    it { is_expected.to contain_package('beegfs-meta') }
+    it { is_expected.to contain_package('beegfs-utils') }
 
-    it { should contain_class('beegfs::repo::debian') }
+    it { is_expected.to contain_class('beegfs::repo::debian') }
 
     it do
-      should contain_service('beegfs-meta').with(
+      is_expected.to contain_service('beegfs-meta').with(
         :ensure => 'running',
         :enable => true
       )
     end
 
     it do
-      should contain_file('/etc/beegfs/beegfs-meta.conf').with({
+      is_expected.to contain_file('/etc/beegfs/beegfs-meta.conf').with({
       'ensure'  => 'present',
       'owner'   => user,
       'group'   => group,
@@ -65,131 +65,139 @@ describe 'beegfs::meta' do
     it_behaves_like 'debian-meta', 'Ubuntu', 'precise'
   end
 
-  context 'allow changing parameters' do
-    let(:params) do
-      {
-      :mgmtd_host => '192.168.1.1',
-      :major_version => '2015.03',
-    }
+  shared_examples 'beegfs-version' do |major_version|
+
+    context 'allow changing parameters' do
+      let(:params) do
+        {
+        :mgmtd_host => '192.168.1.1',
+        :major_version => major_version,
+      }
+      end
+
+      it do
+        is_expected.to contain_file(
+          '/etc/beegfs/beegfs-meta.conf'
+        ).with_content(/sysMgmtdHost(\s+)=(\s+)192.168.1.1/)
+      end
+    end
+
+    context 'with given version' do
+      let(:facts) do
+        {
+        :operatingsystem => 'Debian',
+        :osfamily => 'Debian',
+        :lsbdistcodename => 'wheezy',
+        :lsbdistid => 'Debian',
+        :puppetversion => Puppet.version,
+      }
+      end
+      let(:version) { '2015.03.r8.debian7' }
+      let(:params) do
+        {
+        :package_ensure => version,
+        :major_version => major_version,
+      }
+      end
+
+      it do
+        is_expected.to contain_package('beegfs-meta').with({
+        'ensure' => version
+      })
+      end
     end
 
     it do
-      should contain_file(
-        '/etc/beegfs/beegfs-meta.conf'
-      ).with_content(/sysMgmtdHost(\s+)=(\s+)192.168.1.1/)
-    end
-  end
-
-  context 'with given version' do
-    let(:facts) do
-      {
-      :operatingsystem => 'Debian',
-      :osfamily => 'Debian',
-      :lsbdistcodename => 'wheezy',
-      :lsbdistid => 'Debian',
-      :puppetversion => Puppet.version,
-    }
-    end
-    let(:version) { '2015.03.r8.debian7' }
-    let(:params) do
-      {
-      :package_ensure => version,
-      :major_version => '2015.03',
-    }
-    end
-
-    it do
-      should contain_package('beegfs-meta').with({
-      'ensure' => version
-    })
-    end
-  end
-
-  it do
-    should contain_file('/etc/beegfs/interfaces.meta').with({
-    'ensure'  => 'present',
-    'owner'   => user,
-    'group'   => group,
-    'mode'    => '0644',
-  }).with_content(/eth0/)
-  end
-
-  context 'interfaces file' do
-    let(:params) do
-      {
-      :interfaces      => ['eth0', 'ib0'],
-      :interfaces_file => '/etc/beegfs/meta.itf',
-      :user            => user,
-      :group           => group,
-      :major_version   => '2015.03',
-    }
-    end
-
-    it do
-      should contain_file('/etc/beegfs/meta.itf').with({
+      is_expected.to contain_file('/etc/beegfs/interfaces.meta').with({
       'ensure'  => 'present',
       'owner'   => user,
       'group'   => group,
       'mode'    => '0644',
-    }).with_content(/ib0/)
+    }).with_content(/eth0/)
     end
 
+    context 'interfaces file' do
+      let(:params) do
+        {
+        :interfaces      => ['eth0', 'ib0'],
+        :interfaces_file => '/etc/beegfs/meta.itf',
+        :user            => user,
+        :group           => group,
+        :major_version   => major_version,
+      }
+      end
 
-    it do
-      should contain_file(
-        '/etc/beegfs/beegfs-meta.conf'
-      ).with_content(/connInterfacesFile(\s+)=(\s+)\/etc\/beegfs\/meta.itf/)
-    end
-  end
+      it do
+        is_expected.to contain_file('/etc/beegfs/meta.itf').with({
+        'ensure'  => 'present',
+        'owner'   => user,
+        'group'   => group,
+        'mode'    => '0644',
+      }).with_content(/ib0/)
+      end
 
-  it do
-    should contain_file(
-      '/etc/beegfs/beegfs-meta.conf'
-    ).with_content(/logLevel(\s+)=(\s+)3/)
-  end
 
-  context 'changing log level' do
-    let(:params) do
-      {
-      :log_level => 5,
-      :major_version => '2015.03',
-    }
-    end
-
-    it do
-      is_expected.to contain_file(
-        '/etc/beegfs/beegfs-meta.conf'
-      ).with_content(/logLevel(\s+)=(\s+)5/)
-    end
-  end
-
-  context 'hiera should override defaults' do
-    let(:params) do
-      {
-      :mgmtd_host => '192.168.1.1',
-      :major_version => '2015.03',
-    }
+      it do
+        is_expected.to contain_file(
+          '/etc/beegfs/beegfs-meta.conf'
+        ).with_content(/connInterfacesFile(\s+)=(\s+)\/etc\/beegfs\/meta.itf/)
+      end
     end
 
     it do
       is_expected.to contain_file(
         '/etc/beegfs/beegfs-meta.conf'
-      ).with_content(/sysMgmtdHost(\s+)=(\s+)192.168.1.1/)
+      ).with_content(/logLevel(\s+)=(\s+)3/)
+    end
+
+    context 'changing log level' do
+      let(:params) do
+        {
+        :log_level => 5,
+        :major_version => major_version,
+      }
+      end
+
+      it do
+        is_expected.to contain_file(
+          '/etc/beegfs/beegfs-meta.conf'
+        ).with_content(/logLevel(\s+)=(\s+)5/)
+      end
+    end
+
+    context 'hiera should override defaults' do
+      let(:params) do
+        {
+        :mgmtd_host => '192.168.1.1',
+        :major_version => major_version,
+      }
+      end
+
+      it do
+        is_expected.to contain_file(
+          '/etc/beegfs/beegfs-meta.conf'
+        ).with_content(/sysMgmtdHost(\s+)=(\s+)192.168.1.1/)
+      end
+    end
+
+    context 'disable first run init' do
+      let(:params) do
+        {
+        :allow_first_run_init => false,
+        :major_version => major_version,
+      }
+      end
+
+      it do
+        is_expected.to contain_file(
+          '/etc/beegfs/beegfs-meta.conf'
+        ).with_content(/storeAllowFirstRunInit(\s+)=(\s+)false/)
+      end
     end
   end
 
-  context 'disable first run init' do
-    let(:params) do
-      {
-      :allow_first_run_init => false,
-      :major_version => '2015.03',
-    }
-    end
-
-    it do
-      is_expected.to contain_file(
-        '/etc/beegfs/beegfs-meta.conf'
-      ).with_content(/storeAllowFirstRunInit(\s+)=(\s+)false/)
-    end
+  context 'with beegfs' do
+    it_behaves_like 'beegfs-version', '2015.03'
+    it_behaves_like 'beegfs-version', '6'
   end
 end
