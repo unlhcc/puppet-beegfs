@@ -17,6 +17,8 @@ class beegfs::client (
   $mgmtd_udp_port  = 8008,
   $major_version   = $beegfs::major_version,
   $kernel_packages = $beegfs::params::kernel_packages,
+  $autobuild       = true,
+  $autobuild_args  = '-j8',
 ) inherits beegfs {
 
   require ::beegfs::install
@@ -58,6 +60,20 @@ class beegfs::client (
     content => template("beegfs/${major_version}/beegfs-client.conf.erb"),
   }
 
+  file { '/etc/beegfs/beegfs-client-autobuild.conf':
+    ensure  => present,
+    owner   => $user,
+    group   => $group,
+    mode    => '0644',
+    content => template("beegfs/${major_version}/beegfs-client-autobuild.conf.erb"),
+  }
+
+  exec { '/etc/init.d/beegfs-client rebuild':
+    path        => ['/usr/bin', '/usr/sbin'],
+    subscribe   => File['/etc/beegfs/beegfs-client-autobuild.conf'],
+    refreshonly => true,
+  }
+
   package { 'beegfs-helperd':
     ensure => $package_ensure,
   }
@@ -93,6 +109,9 @@ class beegfs::client (
     ],
     subscribe  => [
       Concat['/etc/beegfs/beegfs-mounts.conf'],
+      File['/etc/beegfs/beegfs-client.conf'],
+      File['/etc/beegfs/beegfs-helperd.conf'],
+      Exec['/etc/init.d/beegfs-client rebuild'],
       File[$interfaces_file],
     ],
   }
