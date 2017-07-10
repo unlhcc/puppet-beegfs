@@ -8,9 +8,7 @@ group :test do
   gem 'simplecov', '>= 0.11.0'
   gem 'simplecov-console'
   gem 'librarian-puppet'
-  if ENV['PUPPET_VERSION'] and ENV['PUPPET_VERSION'] < '4.0'
-    gem 'semantic_puppet'
-  end
+  gem 'semantic_puppet'
   gem 'puppetlabs_spec_helper'
   # newer versions require ruby 2.2
   if RUBY_VERSION < "2.2.0"
