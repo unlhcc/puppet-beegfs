@@ -72,6 +72,7 @@ class beegfs::client (
     path        => ['/usr/bin', '/usr/sbin'],
     subscribe   => File['/etc/beegfs/beegfs-client-autobuild.conf'],
     refreshonly => true,
+    require     => Package['beegfs-client'],
   }
 
   package { 'beegfs-helperd':
