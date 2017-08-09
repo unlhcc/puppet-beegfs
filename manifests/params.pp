@@ -21,7 +21,7 @@ class beegfs::params {
               $release = 'deb8'
             }
             'stretch': {
-              $release = 'deb8' # TODO: updated when it's released
+              $release = 'deb9'
             }
             default: {
               $release = 'deb8'
@@ -37,8 +37,11 @@ class beegfs::params {
             'trusty','xenial': {
               $release = 'deb8'
             }
+            'zesty':{
+              $release = 'deb9'
+            }
             default: {
-              $release = 'deb8'
+              $release = 'deb9'
             }
           }
         }
