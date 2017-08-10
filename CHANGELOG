@@ -1,3 +1,7 @@
+2017-08-10 Release 0.3.2
+- Use deb9 release for Debian 9 Stretch
+2017-07-27 Release 0.3.1
+- Fixed autobuild dependency ([#10](https://github.com/deric/puppet-beegfs/pull/10))
 2017-07-10 Release 0.3.0
 - Autobuild configuration ([#7](https://github.com/deric/puppet-beegfs/pull/7))
 - Support multiple storage directories ([#8](https://github.com/deric/puppet-beegfs/pull/8))
