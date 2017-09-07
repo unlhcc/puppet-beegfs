@@ -10,7 +10,13 @@ class beegfs::params {
       case $facts['os']['name'] {
         'Debian': {
           $kernel_packages = ['linux-headers-amd64']
-          case $facts['os']['distro']['codename'] {
+
+          $dist = has_key($facts['os'], 'distro') ? {
+            true =>  $facts['os']['distro']['codename'], # puppet 4.10.6 (puppetlabs)
+            false =>  $facts['os']['lsb']['distcodename'] # puppet 4.8.2 (debian) WHY?!
+          }
+
+          case $dist {
             'wheezy': {
               $release = 'deb7'
             }
