@@ -3,13 +3,18 @@ require 'spec_helper'
 describe 'beegfs::client' do
   let(:facts) do
     {
-    :operatingsystem => 'Debian',
-    :osfamily => 'Debian',
-    :lsbdistcodename => 'wheezy',
-    :lsbdistid => 'Debian',
-    :operatingsystemmajrelease => '7',
-    :puppetversion => Puppet.version,
-  }
+      # still old fact is needed due to this
+      # https://github.com/puppetlabs/puppetlabs-apt/blob/master/manifests/params.pp#L3
+      :osfamily => 'Debian',
+      :os => {
+        :family => 'Debian',
+        :name => 'Debian',
+        :architecture => 'amd64',
+        :distro => { :codename => 'jessie' },
+        :release => { :major => '7', :minor => '1', :full => '7.1' },
+      },
+      :puppetversion => Puppet.version,
+    }
   end
 
   let(:user) { 'beegfs' }
@@ -27,13 +32,20 @@ describe 'beegfs::client' do
   shared_examples 'debian_beegfs-client' do |os, codename, headers|
     let(:facts) do
       {
-      :operatingsystem => os,
-      :osfamily => 'Debian',
-      :lsbdistcodename => codename,
-      :lsbdistid => 'Debian',
-      :puppetversion => Puppet.version,
-    }
+        # still old fact is needed due to this
+        # https://github.com/puppetlabs/puppetlabs-apt/blob/master/manifests/params.pp#L3
+        :osfamily => 'Debian',
+        :os => {
+          :family => 'Debian',
+          :name => os,
+          :architecture => 'amd64',
+          :distro => { :codename => codename },
+          :release => { :major => '7', :minor => '1', :full => '7.1' },
+        },
+        :puppetversion => Puppet.version,
+      }
     end
+
     it { is_expected.to contain_package('beegfs-client') }
     it { is_expected.to contain_package(headers) }
     it { is_expected.to contain_package('beegfs-helperd') }
@@ -84,14 +96,19 @@ describe 'beegfs::client' do
   context 'on RedHat' do
     let(:facts) do
       {
-      :operatingsystem => 'RedHat',
-      :osfamily => 'RedHat',
-      :lsbdistcodename => '6',
-      :lsbdistid => 'RedHat',
-      :operatingsystemmajrelease => '6',
-      :puppetversion => Puppet.version,
-    }
+        # still old fact is needed due to this
+        # https://github.com/puppetlabs/puppetlabs-apt/blob/master/manifests/params.pp#L3
+        :osfamily => 'RedHat',
+        :os => {
+          :family => 'RedHat',
+          :name => 'RedHat',
+          :architecture => 'amd64',
+          :release => { :major => '6', :minor => '1', :full => '6.1' },
+        },
+        :puppetversion => Puppet.version,
+      }
     end
+
     let(:params) do
       {
       :kernel_ensure => '12.036+nmu3'

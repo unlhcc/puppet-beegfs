@@ -9,7 +9,7 @@ class beegfs::repo::debian (
 
   anchor { 'beegfs::apt_repo' : }
 
-  include '::apt'
+  include apt
 
   if $manage_repo {
     case $package_source {

@@ -3,12 +3,18 @@ require 'spec_helper'
 describe 'beegfs::mgmtd' do
   let(:facts) do
     {
-    :operatingsystem => 'Debian',
-    :osfamily => 'Debian',
-    :lsbdistcodename => 'wheezy',
-    :lsbdistid => 'Debian',
-    :puppetversion => Puppet.version,
-  }
+      # still old fact is needed due to this
+      # https://github.com/puppetlabs/puppetlabs-apt/blob/master/manifests/params.pp#L3
+      :osfamily => 'Debian',
+      :os => {
+        :family => 'Debian',
+        :name => 'Debian',
+        :architecture => 'amd64',
+        :distro => { :codename => 'jessie' },
+        :release => { :major => '7', :minor => '1', :full => '7.1' },
+      },
+      :puppetversion => Puppet.version,
+    }
   end
 
   let(:user) { 'beegfs' }
@@ -25,12 +31,18 @@ describe 'beegfs::mgmtd' do
   shared_examples 'debian-mgmtd' do |os, codename|
     let(:facts) do
       {
-      :operatingsystem => os,
-      :osfamily => 'Debian',
-      :lsbdistcodename => codename,
-      :lsbdistid => 'Debian',
-      :puppetversion => Puppet.version,
-    }
+        # still old fact is needed due to this
+        # https://github.com/puppetlabs/puppetlabs-apt/blob/master/manifests/params.pp#L3
+        :osfamily => 'Debian',
+        :os => {
+          :family => 'Debian',
+          :name => os,
+          :architecture => 'amd64',
+          :distro => { :codename => codename },
+          :release => { :major => '7', :minor => '1', :full => '7.1' },
+        },
+        :puppetversion => Puppet.version,
+      }
     end
 
     let(:params) do
@@ -40,13 +52,13 @@ describe 'beegfs::mgmtd' do
       :major_version => '2015.03',
     }
     end
-    it { should contain_package('beegfs-mgmtd') }
-    it { should contain_package('beegfs-utils') }
+    it { is_expected.to contain_package('beegfs-mgmtd') }
+    it { is_expected.to contain_package('beegfs-utils') }
 
-    it { should contain_class('beegfs::repo::debian') }
+    it { is_expected.to contain_class('beegfs::repo::debian') }
 
     it do
-      should contain_service('beegfs-mgmtd').with(
+      is_expected.to contain_service('beegfs-mgmtd').with(
         :ensure => 'running',
         :enable => true
       )

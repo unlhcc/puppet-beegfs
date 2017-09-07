@@ -5,12 +5,12 @@
 #
 class beegfs::params {
 
-  case $::osfamily {
+  case $facts['os']['family'] {
     'Debian': {
-      case $::operatingsystem {
+      case $facts['os']['name'] {
         'Debian': {
           $kernel_packages = ['linux-headers-amd64']
-          case $::lsbdistcodename {
+          case $facts['os']['distro']['codename'] {
             'wheezy': {
               $release = 'deb7'
             }
@@ -30,7 +30,7 @@ class beegfs::params {
         }
         'Ubuntu': {
           $kernel_packages = ['linux-headers-generic']
-          case $::lsbdistcodename {
+          case $facts['os']['distro']['codename'] {
             'precise': {
               $release = 'deb7'
             }
@@ -46,7 +46,7 @@ class beegfs::params {
           }
         }
         default: {
-          fail("Family: ${::osfamily} OS: ${::operatingsystem} is not supported yet") #"
+          fail("Family: ${facts['os']['family']} OS: ${facts['os']['name']} is not supported yet") #"
         }
       }
     }
@@ -54,15 +54,15 @@ class beegfs::params {
       $kernel_packages = ['kernel-devel']
       $repo_defaults = {
         '2015.03' => {
-          'descr'   => "BeeGFS 2015.03 (RHEL${::operatingsystemmajrelease})",
-          'baseurl' => "http://www.beegfs.com/release/beegfs_2015.03/dists/rhel${::operatingsystemmajrelease}",
+          'descr'   => "BeeGFS 2015.03 (RHEL${facts['os']['release']['major']})",
+          'baseurl' => "http://www.beegfs.com/release/beegfs_2015.03/dists/rhel${facts['os']['release']['major']}",
           'gpgkey'  => 'http://www.beegfs.com/release/beegfs_2015.03/gpg/RPM-GPG-KEY-beegfs',
         },
       }
       $release = 'redhat'
     }
     default: {
-      fail("Family: ${::osfamily} OS: ${::operatingsystem} is not supported yet") #"
+      fail("Family: ${facts['os']['family']} OS: ${facts['os']['name']} is not supported yet") #"
     }
   }
 }

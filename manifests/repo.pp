@@ -12,7 +12,7 @@ class beegfs::repo(
   anchor { 'beegfs::repo::begin': }
   anchor { 'beegfs::repo::end': }
 
-  case $::osfamily {
+  case $facts['os']['family'] {
     'Debian': {
       class { '::beegfs::repo::debian':
         release => $release,
@@ -27,7 +27,7 @@ class beegfs::repo(
       }
     }
     default: {
-      fail("Module '${module_name}' is not supported on OS: '${::operatingsystem}', family: '${::osfamily}'")
+      fail("Module '${module_name}' is not supported on OS: '${facts['os']['name']}', family: '${facts['os']['family']}'")
     }
   }
 }

@@ -3,12 +3,18 @@ require 'spec_helper'
 describe 'beegfs::meta' do
   let(:facts) do
     {
-    :operatingsystem => 'Debian',
-    :osfamily => 'Debian',
-    :lsbdistcodename => 'wheezy',
-    :lsbdistid => 'Debian',
-    :puppetversion => Puppet.version,
-  }
+      # still old fact is needed due to this
+      # https://github.com/puppetlabs/puppetlabs-apt/blob/master/manifests/params.pp#L3
+      :osfamily => 'Debian',
+      :os => {
+        :family => 'Debian',
+        :name => 'Debian',
+        :architecture => 'amd64',
+        :distro => { :codename => 'jessie' },
+        :release => { :major => '7', :minor => '1', :full => '7.1' },
+      },
+      :puppetversion => Puppet.version,
+    }
   end
 
   let(:user) { 'beegfs' }
@@ -28,12 +34,18 @@ describe 'beegfs::meta' do
   shared_examples 'debian-meta' do |os, codename|
     let(:facts) do
       {
-      :operatingsystem => os,
-      :osfamily => 'Debian',
-      :lsbdistcodename => codename,
-      :lsbdistid => 'Debian',
-      :puppetversion => Puppet.version,
-    }
+        # still old fact is needed due to this
+        # https://github.com/puppetlabs/puppetlabs-apt/blob/master/manifests/params.pp#L3
+        :osfamily => 'Debian',
+        :os => {
+          :family => 'Debian',
+          :name => os,
+          :architecture => 'amd64',
+          :distro => { :codename => codename },
+          :release => { :major => '7', :minor => '1', :full => '7.1' },
+        },
+        :puppetversion => Puppet.version,
+      }
     end
     it { is_expected.to contain_package('beegfs-meta') }
     it { is_expected.to contain_package('beegfs-utils') }
@@ -85,12 +97,18 @@ describe 'beegfs::meta' do
     context 'with given version' do
       let(:facts) do
         {
-        :operatingsystem => 'Debian',
-        :osfamily => 'Debian',
-        :lsbdistcodename => 'wheezy',
-        :lsbdistid => 'Debian',
-        :puppetversion => Puppet.version,
-      }
+          # still old fact is needed due to this
+          # https://github.com/puppetlabs/puppetlabs-apt/blob/master/manifests/params.pp#L3
+          :osfamily => 'Debian',
+          :os => {
+            :family => 'Debian',
+            :name => 'Debian',
+            :architecture => 'amd64',
+            :distro => { :codename => 'wheezy' },
+            :release => { :major => '7', :minor => '1', :full => '7.1' },
+          },
+          :puppetversion => Puppet.version,
+        }
       end
       let(:version) { '2015.03.r8.debian7' }
       let(:params) do

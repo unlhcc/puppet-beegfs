@@ -2,7 +2,27 @@ require 'spec_helper'
 
 describe 'beegfs' do
   context 'supported operating systems' do
-    on_supported_os.each do |os, facts|
+     {
+        'centos-6' => {
+          :osfamily => 'RedHat',
+          :os => {
+            :family => 'RedHat',
+            :name => 'Centos',
+            :architecture => 'amd64',
+            :release => { :major => '6', :minor => '2', :full => '6.2' },
+          },
+        },
+        'ubuntu-14.04' => {
+          :osfamily => 'Debian',
+          :os => {
+            :family => 'Debian',
+            :name => 'Ubuntu',
+            :architecture => 'amd64',
+            :distro => { :codename => 'trusty' },
+            :release => { :major => '14', :minor => '04', :full => '14.04' },
+          },
+        },
+      }.each do |os, facts|
       context "on #{os}" do
         let(:facts) do
           facts
@@ -27,8 +47,10 @@ describe 'beegfs' do
     describe 'beegfs class without any parameters on Solaris/Nexenta' do
       let(:facts) do
         {
-          :osfamily        => 'Solaris',
-          :operatingsystem => 'Nexenta',
+          :os => {
+            :family        => 'Solaris',
+            :name => 'Nexenta',
+          }
         }
       end
 
