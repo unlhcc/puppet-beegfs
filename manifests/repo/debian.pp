@@ -27,12 +27,11 @@ class beegfs::repo::debian (
             'src' => false,
             'deb' => true,
           },
-          notify       => Exec['apt_update'], # we can't use require in here without causing dependency cycles
           before       => Anchor['beegfs::apt_repo'],
         }
       }
       default: {}
     }
-    Class['apt::update'] -> Package['beegfs-utils']
+    Class['apt::update'] -> Package<| tag == 'beegfs' |>
   }
 }
