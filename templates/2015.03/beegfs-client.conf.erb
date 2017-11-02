@@ -62,7 +62,11 @@ tunePreferredStorageFile      =
 tuneRemoteFSync               = true
 tuneUseGlobalAppendLocks      = false
 tuneUseGlobalFileLocks        = false
-
+<% if @tune_refresh_on_get_attr == true -%>
+tuneRefreshOnGetAttr          = true
+<% else -%>
+tuneRefreshOnGetAttr          = false
+<% end -%>
 
 #
 # --- Section 1.3: [Enterprise Features] ---
