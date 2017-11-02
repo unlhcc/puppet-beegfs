@@ -1,3 +1,7 @@
+2017-11-02 Release 0.4.0
+- Remove Puppet 3 support
+- Upgrade apt module dependency
+- Support setting tuneRefreshOnGetAttr [#11](https://github.com/deric/puppet-beegfs/pull/11)
 2017-08-10 Release 0.3.2
 - Use deb9 release for Debian 9 Stretch
 2017-07-27 Release 0.3.1
