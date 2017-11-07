@@ -12,7 +12,7 @@ class beegfs::storage (
   $user                 = $beegfs::user,
   $group                = $beegfs::group,
   $package_ensure       = $beegfs::package_ensure,
-  $quota_enable_enforcement      = $beegfs::uota_enable_enforcement,
+  $quota_enable_enforcement      = $beegfs::quota_enable_enforcement,
   $interfaces           = ['eth0'],
   $interfaces_file      = '/etc/beegfs/interfaces.storage',
   $mgmtd_tcp_port       = 8008,
