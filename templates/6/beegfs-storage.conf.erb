@@ -47,7 +47,7 @@ logNumLines                  = 50000
 logNumRotatedFiles           = 5
 logStdFile                   = <%= @log_dir %>/beegfs-storage.log
 
-quotaEnableEnforcement       = false
+quotaEnableEnforcement       = <%= @quota_enable_enforcement %>
 
 runDaemonized                = true
 
