@@ -66,9 +66,9 @@ class beegfs::mgmtd (
       Package['beegfs-mgmtd'],
       File[$interfaces_file],
     ],
-    subscribe  => [
-      File['/etc/beegfs/beegfs-mgmtd.conf'],
-      File[$interfaces_file],
-    ],
+#    subscribe  => [
+#      File['/etc/beegfs/beegfs-mgmtd.conf'],
+#      File[$interfaces_file],
+#    ],
   }
 }
