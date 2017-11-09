@@ -72,9 +72,9 @@ class beegfs::storage (
     hasstatus  => true,
     hasrestart => true,
     require    => Package['beegfs-storage'],
-    subscribe  => [
-      File['/etc/beegfs/beegfs-storage.conf'],
-      File[$interfaces_file],
-    ],
+#    subscribe  => [
+#      File['/etc/beegfs/beegfs-storage.conf'],
+#      File[$interfaces_file],
+#    ],
   }
 }
