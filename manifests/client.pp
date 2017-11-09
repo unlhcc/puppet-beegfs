@@ -109,12 +109,12 @@ class beegfs::client (
       Service['beegfs-helperd'],
       File[$interfaces_file],
     ],
-    subscribe  => [
-      Concat['/etc/beegfs/beegfs-mounts.conf'],
-      File['/etc/beegfs/beegfs-client.conf'],
-      File['/etc/beegfs/beegfs-helperd.conf'],
-      Exec['/etc/init.d/beegfs-client rebuild'],
-      File[$interfaces_file],
-    ],
+#    subscribe  => [
+#      Concat['/etc/beegfs/beegfs-mounts.conf'],
+#      File['/etc/beegfs/beegfs-client.conf'],
+#      File['/etc/beegfs/beegfs-helperd.conf'],
+#      Exec['/etc/init.d/beegfs-client rebuild'],
+#      File[$interfaces_file],
+#    ],
   }
 }
