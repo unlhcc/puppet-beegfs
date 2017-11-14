@@ -57,7 +57,6 @@ sysSessionCheckOnClose        = false
 sysSyncOnClose                = false
 sysTargetOfflineTimeoutSecs   = 900
 sysUpdateTargetStatesSecs     = 60
-sysXAttrsEnabled              = false
 
 tuneFileCacheType             = buffered
 tuneNumWorkers                = 0
@@ -79,7 +78,13 @@ tuneRefreshOnGetAttr          = false
 # enterprise features.
 #
 
+<% if @enable_acl -%>
+sysACLsEnabled                = true
+sysXAttrsEnabled              = true
+<% else -%>
 sysACLsEnabled                = false
+sysXAttrsEnabled              = false
+<% end -%>
 
 
 #
