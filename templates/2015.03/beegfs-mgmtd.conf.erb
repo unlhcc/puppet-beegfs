@@ -71,7 +71,11 @@ tuneStorageSpaceEmergencyLimit         = <%= @storage_space_emergency_limit %>
 # enterprise features.
 #
 
+<% if @enable_quota -%>
+quotaEnableEnforcement                 = true
+<% else -%>
 quotaEnableEnforcement                 = false
+<% end -%>
 
 
 #

@@ -45,7 +45,11 @@ logHelperdIP                  =
 logLevel                      = <%= @log_level %>
 logType                       = helperd
 
+<% if @enable_quota -%>
+quotaEnabled                  = true
+<% else -%>
 quotaEnabled                  = false
+<% end -%>
 
 sysCreateHardlinksAsSymlinks  = false
 sysMountSanityCheckMS         = 11000

@@ -20,6 +20,7 @@ class beegfs::client (
   $autobuild                = true,
   $autobuild_args           = '-j8',
   $tune_refresh_on_get_attr = false,
+  $enable_quota             = $beegfs::enable_quota,
 ) inherits beegfs {
 
   require ::beegfs::install

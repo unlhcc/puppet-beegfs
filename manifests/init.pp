@@ -25,6 +25,7 @@ class beegfs (
   $group                         = 'root',
   $major_version                 = '2015.03',
   $admon_db_file                 = '/var/lib/beegfs/beegfs-admon.db',
+  $enable_quota                  = false,
 ) inherits ::beegfs::params {
 
   if ($version == undef){
