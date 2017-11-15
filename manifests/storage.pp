@@ -17,6 +17,7 @@ class beegfs::storage (
   $mgmtd_tcp_port       = 8008,
   $mgmtd_udp_port       = 8008,
   $major_version        = $beegfs::major_version,
+  $enable_quota         = $beegfs::enable_quota,
 ) inherits ::beegfs {
 
   require ::beegfs::install

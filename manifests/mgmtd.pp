@@ -20,6 +20,7 @@ class beegfs::mgmtd (
   $interfaces                    = ['eth0'],
   $interfaces_file               = '/etc/beegfs/interfaces.mgmtd',
   $major_version                 = $beegfs::major_version,
+  $enable_quota                  = $beegfs::enable_quota,
   ) inherits ::beegfs {
   require ::beegfs
   require ::beegfs::install
