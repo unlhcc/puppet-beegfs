@@ -17,8 +17,16 @@
 storeMgmtdDirectory      = <%= @directory %>
 storeAllowFirstRunInit   = <%= @allow_first_run_init %>
 
+<% if @allow_new_servers -%>
 sysAllowNewServers       = true
+<% else -%>
+sysAllowNewServers       = false
+<% end -%>
+<% if @allow_new_targets -%>
 sysAllowNewTargets       = true
+<% else -%>
+sysAllowNewTargets       = false
+<% end -%>
 
 
 #
