@@ -50,8 +50,16 @@ logStdFile                   = <%= @log_dir %>/beegfs-meta.log
 
 runDaemonized                = true
 
+<% if @enable_acl -%>
+storeClientXAttrs            = true
+storeClientACLs              = true
+<% else -%>
 storeClientXAttrs            = false
 storeClientACLs              = false
+<% end -%>
+# This following option can only be changed before the first service startup.
+# (see https://www.beegfs.io/wiki/FAQ#acl)
+# Therefore we keep it 'true' irrespective of the setting of the enable_acl switch.
 storeUseExtendedAttribs      = true
 
 sysTargetAttachmentFile      =

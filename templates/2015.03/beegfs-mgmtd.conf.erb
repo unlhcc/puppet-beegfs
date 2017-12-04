@@ -15,10 +15,18 @@
 #
 
 storeMgmtdDirectory      = <%= @directory %>
-storeAllowFirstRunInit   = true
+storeAllowFirstRunInit   = <%= @allow_first_run_init %>
 
+<% if @allow_new_servers -%>
 sysAllowNewServers       = true
-sysAllowNewTargets       = <%= @allow_first_run_init %>
+<% else -%>
+sysAllowNewServers       = false
+<% end -%>
+<% if @allow_new_targets -%>
+sysAllowNewTargets       = true
+<% else -%>
+sysAllowNewTargets       = false
+<% end -%>
 
 
 #
@@ -71,7 +79,11 @@ tuneStorageSpaceEmergencyLimit         = <%= @storage_space_emergency_limit %>
 # enterprise features.
 #
 
+<% if @enable_quota -%>
+quotaEnableEnforcement                 = true
+<% else -%>
 quotaEnableEnforcement                 = false
+<% end -%>
 
 
 #
