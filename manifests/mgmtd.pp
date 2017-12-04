@@ -11,7 +11,6 @@ class beegfs::mgmtd (
   $meta_space_emergency_limit    = $beegfs::meta_space_emergency_limit,
   $storage_space_low_limit       = $beegfs::storage_space_low_limit,
   $storage_space_emergency_limit = $beegfs::storage_space_emergency_limit,
-  $quota_enable_enforcement      = $beegfs::quota_enable_enforcement,
   $version                       = $beegfs::version,
   $log_dir                       = $beegfs::log_dir,
   $log_level                     = 2,

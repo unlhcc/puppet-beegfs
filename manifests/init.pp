@@ -9,7 +9,6 @@
 #   ipaddress of management node
 #
 class beegfs (
-  $quota_enable_enforcement      = 'true',
   $manage_repo                   = true,
   $mgmtd_host                    = 'localhost',
   $meta_directory                = '/srv/beegfs/meta',
