@@ -60,7 +60,7 @@ class beegfs::mgmtd (
   }
 
   service { 'beegfs-mgmtd':
-    ensure     => running,
+    ensure     => undef,
     enable     => $enable,
     hasstatus  => true,
     hasrestart => true,
@@ -68,10 +68,9 @@ class beegfs::mgmtd (
       Package['beegfs-mgmtd'],
       File[$interfaces_file],
     ],
-#    refreshable => false,
-#    subscribe  => [
-#      File['/etc/beegfs/beegfs-mgmtd.conf'],
-#      File[$interfaces_file],
-#    ],
+    subscribe  => [
+      File['/etc/beegfs/beegfs-mgmtd.conf'],
+      File[$interfaces_file],
+    ],
   }
 }

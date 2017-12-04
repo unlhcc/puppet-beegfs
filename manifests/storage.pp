@@ -67,14 +67,14 @@ class beegfs::storage (
   }
 
   service { 'beegfs-storage':
-    ensure     => running,
+    ensure     => undef,
     enable     => $enable,
     hasstatus  => true,
     hasrestart => true,
     require    => Package['beegfs-storage'],
-#    subscribe  => [
-#      File['/etc/beegfs/beegfs-storage.conf'],
-#      File[$interfaces_file],
-#    ],
+    subscribe  => [
+      File['/etc/beegfs/beegfs-storage.conf'],
+      File[$interfaces_file],
+    ],
   }
 }
