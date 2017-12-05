@@ -4,6 +4,7 @@
 #
 class beegfs::meta (
   $enable               = true,
+  $ensure               = 'running',
   $meta_directory       = $beegfs::meta_directory,
   $allow_first_run_init = true,
   $mgmtd_host           = $beegfs::mgmtd_host,
@@ -46,7 +47,7 @@ class beegfs::meta (
   }
 
   service { 'beegfs-meta':
-    ensure     => running,
+    ensure     => $ensure,
     enable     => $enable,
     hasstatus  => true,
     hasrestart => true,

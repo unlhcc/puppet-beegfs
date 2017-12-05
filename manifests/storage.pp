@@ -4,6 +4,7 @@
 #
 class beegfs::storage (
   $enable               = true,
+  $ensure               = 'running',
   $storage_directory    = $beegfs::storage_directory,
   $allow_first_run_init = true,
   $mgmtd_host           = $beegfs::mgmtd_host,
@@ -67,7 +68,7 @@ class beegfs::storage (
   }
 
   service { 'beegfs-storage':
-    ensure     => undef,
+    ensure     => $ensure,
     enable     => $enable,
     hasstatus  => true,
     hasrestart => true,

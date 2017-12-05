@@ -4,6 +4,7 @@
 #
 class beegfs::mgmtd (
   $enable                        = true,
+  $ensure                        = 'running',
   $directory                     = '/srv/beegfs/mgmtd',
   $allow_first_run_init          = true,
   $client_auto_remove_mins       = $beegfs::client_auto_remove_mins,
@@ -60,7 +61,7 @@ class beegfs::mgmtd (
   }
 
   service { 'beegfs-mgmtd':
-    ensure     => undef,
+    ensure     => $ensure,
     enable     => $enable,
     hasstatus  => true,
     hasrestart => true,
