@@ -4,7 +4,6 @@
 #
 class beegfs::storage (
   $enable               = true,
-  $ensure               = 'running',
   $storage_directory    = $beegfs::storage_directory,
   $allow_first_run_init = true,
   $mgmtd_host           = $beegfs::mgmtd_host,
@@ -68,7 +67,10 @@ class beegfs::storage (
   }
 
   service { 'beegfs-storage':
-    ensure     => $ensure,
+    ensure     => lookup({
+        'name'          => 'beegfs::storage::ensure',
+        'default_value' => 'running'
+    }),
     enable     => $enable,
     hasstatus  => true,
     hasrestart => true,
