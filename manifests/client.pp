@@ -22,6 +22,8 @@ class beegfs::client (
   $tune_refresh_on_get_attr = false,
   $enable_quota             = $beegfs::enable_quota,
   $enable_acl               = $beegfs::enable_acl,
+  $netfilters               = [''],
+  $netfilter_file           = '/etc/beegfs/beegfs-netfilter.conf',
 ) inherits beegfs {
 
   require ::beegfs::install
@@ -49,6 +51,14 @@ class beegfs::client (
     group   => $group,
     mode    => '0644',
     content => template('beegfs/interfaces.erb'),
+  }
+
+  file { $netfilter_file:
+    ensure  => present,
+    owner   => $user,
+    group   => $group,
+    mode    => '0644',
+    content => template('beegfs/beegfs-netfilter.erb'),
   }
 
   file { '/etc/beegfs/beegfs-client.conf':
