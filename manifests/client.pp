@@ -127,6 +127,7 @@ class beegfs::client (
       File['/etc/beegfs/beegfs-helperd.conf'],
       Exec['/etc/init.d/beegfs-client rebuild'],
       File[$interfaces_file],
+      File[$netfilter_file],
     ],
   }
 }
