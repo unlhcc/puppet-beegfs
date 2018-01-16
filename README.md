@@ -13,6 +13,7 @@ You need one mgmtd server:
 ```puppet
 class { 'beegfs::mgmtd': }
 ```
+in order to accept new storage and meta servers you have to (at least temporarily) enable `allow_new_servers` and `allow_new_targets`.
 
 And probably many storage and meta servers:
 ```puppet
@@ -62,7 +63,13 @@ are shared between all components, like:
 
 ```
 beegfs::mgmtd_host: '192.168.1.1'
-beegfs::major_version: '2015.03'
+beegfs::mgmtd::allow_new_servers: true
+beegfs::mgmtd::allow_new_targets: true
+beegfs::major_version: '6'
+```
+
+version could be also defined exactly, like:
+```
 beegfs::version: '2015.03.r9.debian7'
 ```
 
@@ -72,10 +79,21 @@ beegfs::meta::interfaces:
   - 'eth0'
 ```
 
+Recent releases of Linux Kernel might include "deterministic interfaces naming" (like `enp0s31f6`) that requires specifying which interface should be BeeGFS instances using:
+
+```yaml
+beegfs::client::interfaces:
+  - "%{facts.networking.primary}"
+beegfs::meta::interfaces:
+  - "%{facts.networking.primary}"
+beegfs::storage::interfaces:
+  - "%{facts.networking.primary}"
+```
+
 ## Requirements
 
  * Ruby 1.9 or newer
- * at least Puppet 3.8 and < 5.0
+ * at least Puppet 4.0 and < 5.0
 
 ## License
 
