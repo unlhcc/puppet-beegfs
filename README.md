@@ -93,7 +93,7 @@ beegfs::storage::interfaces:
 ## Requirements
 
  * Ruby 1.9 or newer
- * at least Puppet 4.0 and < 5.0
+ * at least Puppet 4.0 and < 6.0
 
 ## License
 
