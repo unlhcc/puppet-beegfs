@@ -61,7 +61,7 @@ class { 'beegfs::storage':
 All configuration could be specified in Hiera config files. Some settings
 are shared between all components, like:
 
-```
+```yaml
 beegfs::mgmtd_host: '192.168.1.1'
 beegfs::mgmtd::allow_new_servers: true
 beegfs::mgmtd::allow_new_targets: true
@@ -69,12 +69,12 @@ beegfs::major_version: '6'
 ```
 
 version could be also defined exactly, like:
-```
+```yaml
 beegfs::version: '2015.03.r9.debian7'
 ```
 
 for module specific setting use correct namespace, e.g.:
-```
+```yaml
 beegfs::meta::interfaces:
   - 'eth0'
 ```
