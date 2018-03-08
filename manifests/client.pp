@@ -113,7 +113,8 @@ class beegfs::client (
   }
 
   service { 'beegfs-client':
-    ensure     => undef,
+    ensure     => running,
+    restart    => '/bin/true', # singularity jobs prevent clean restarts
     enable     => true,
     hasstatus  => true,
     hasrestart => true,
