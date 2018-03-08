@@ -5,7 +5,7 @@
 class beegfs::storage (
   $enable               = true,
   $storage_directory    = $beegfs::storage_directory,
-  $allow_first_run_init = true,
+  $allow_first_run_init = $beegfs::allow_first_run_init,
   $mgmtd_host           = $beegfs::mgmtd_host,
   $log_dir              = $beegfs::log_dir,
   $log_level            = 3,
