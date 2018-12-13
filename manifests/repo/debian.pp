@@ -4,7 +4,7 @@ class beegfs::repo::debian (
   $release,
   $manage_repo    = true,
   $package_source = $beegfs::package_source,
-  $major_version  = $beegfs::major_version,
+  Beegfs::Major_version $major_version  = $beegfs::major_version,
 ) {
 
   anchor { 'beegfs::apt_repo' : }

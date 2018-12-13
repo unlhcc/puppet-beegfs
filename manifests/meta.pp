@@ -3,23 +3,22 @@
 # This module manages beegfs meta service
 #
 class beegfs::meta (
-  $enable               = true,
-  $meta_directory       = $beegfs::meta_directory,
-  $allow_first_run_init = true,
-  $mgmtd_host           = $beegfs::mgmtd_host,
-  $log_dir              = $beegfs::log_dir,
-  $log_level            = 3,
-  $user                 = $beegfs::user,
-  $group                = $beegfs::group,
-  $package_ensure       = hiera('beegfs::package_ensure', $beegfs::package_ensure),
-  $interfaces           = ['eth0'],
-  $interfaces_file      = '/etc/beegfs/interfaces.meta',
-  $major_version        = $beegfs::major_version,
-  $enable_acl           = $beegfs::enable_acl,
+  Boolean               $enable               = true,
+  Stdlib::AbsolutePath  $meta_directory       = $beegfs::meta_directory,
+  Boolean               $allow_first_run_init = true,
+  Stdlib::Host          $mgmtd_host           = $beegfs::mgmtd_host,
+  Stdlib::AbsolutePath  $log_dir              = $beegfs::log_dir,
+  Beegfs::LogLevel      $log_level            = 3,
+  String                $user                 = $beegfs::user,
+  String                $group                = $beegfs::group,
+                        $package_ensure       = hiera('beegfs::package_ensure', $beegfs::package_ensure),
+  Array[String]         $interfaces           = ['eth0'],
+  Stdlib::AbsolutePath  $interfaces_file      = '/etc/beegfs/interfaces.meta',
+  Beegfs::Major_version $major_version        = $beegfs::major_version,
+  Boolean               $enable_acl           = $beegfs::enable_acl,
 ) inherits ::beegfs {
 
   require ::beegfs::install
-  validate_array($interfaces)
 
   package { 'beegfs-meta':
     ensure => $package_ensure,

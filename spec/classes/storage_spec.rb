@@ -92,7 +92,7 @@ describe 'beegfs::storage' do
       'user'  => user,
       'group' => group,
       :major_version => '2015.03',
-      :storage_directory => '/srv/beefgs/storage'
+      :storage_directory => ['/srv/beefgs/storage'],
     }
     end
 
@@ -110,7 +110,7 @@ describe 'beegfs::storage' do
       'user'  => user,
       'group' => group,
       :major_version => major_version,
-      :storage_directory => '/srv/beefgs/storage'
+      :storage_directory => ['/srv/beefgs/storage'],
     }
     end
 
@@ -222,39 +222,6 @@ describe 'beegfs::storage' do
       let(:params) do
         {
         :storage_directory => ['/var/storage1','/var/storage2'],
-        :major_version => major_version,
-        :user => user,
-        :group => group,
-      }
-      end
-
-      it do
-        is_expected.to contain_file(
-          '/etc/beegfs/beegfs-storage.conf'
-        ).with_content(/storeStorageDirectory(\s+)=(\s+)\/var\/storage1,\/var\/storage2/)
-      end
-
-      it do
-        is_expected.to contain_file('/var/storage1').with({
-          'ensure'  => 'directory',
-          'owner'   => user,
-          'group'   => group,
-        })
-      end
-
-      it do
-        is_expected.to contain_file('/var/storage2').with({
-          'ensure'  => 'directory',
-          'owner'   => user,
-          'group'   => group,
-        })
-      end
-    end
-
-    context 'pass storage directory as a string' do
-      let(:params) do
-        {
-        :storage_directory => '/var/storage1,/var/storage2',
         :major_version => major_version,
         :user => user,
         :group => group,

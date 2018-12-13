@@ -1,3 +1,4 @@
+# -*- mode: conf-unix; -*-
 # This is a config file for BeeGFS storage nodes.
 # http://www.beegfs.com
 
@@ -16,7 +17,7 @@
 
 sysMgmtdHost                 = <%= @mgmtd_host %>
 
-storeStorageDirectory        = <%= @storage_directory.respond_to?("join") ? @storage_directory.join(",") : @storage_directory %>
+storeStorageDirectory        = <%= @storage_directory.join(',') %>
 storeAllowFirstRunInit       = <%= @allow_first_run_init %>
 
 
