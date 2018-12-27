@@ -7,8 +7,9 @@ class beegfs::storage (
   Array[Stdlib::AbsolutePath] $storage_directory    = $beegfs::storage_directory,
   Boolean                     $allow_first_run_init = true,
   Stdlib::Host                $mgmtd_host           = $beegfs::mgmtd_host,
-  Stdlib::AbsolutePath        $log_dir              = $beegfs::log_dir,
-  Beegfs::LogLevel            $log_level            = 3,
+  Beegfs::LogDir              $log_dir              = $beegfs::log_dir,
+  Beegfs::LogType             $log_type             = $beegfs::log_type,
+  Beegfs::LogLevel            $log_level            = $beegfs::log_level,
   String                      $user                 = $beegfs::user,
   String                      $group                = $beegfs::group,
                               $package_ensure       = $beegfs::package_ensure,
@@ -16,11 +17,13 @@ class beegfs::storage (
   Stdlib::AbsolutePath        $interfaces_file      = '/etc/beegfs/interfaces.storage',
   Stdlib::Port                $mgmtd_tcp_port       = 8008,
   Stdlib::Port                $mgmtd_udp_port       = 8008,
-  Beegfs::Major_version       $major_version        = $beegfs::major_version,
+  Beegfs::Release             $release              = $beegfs::release,
   Boolean                     $enable_quota         = $beegfs::enable_quota,
 ) inherits ::beegfs {
 
   require ::beegfs::install
+
+  $_release_major = beegfs::release_to_major($release)
 
   file { $storage_directory:
     ensure => directory,
@@ -46,7 +49,7 @@ class beegfs::storage (
     owner   => $user,
     group   => $group,
     mode    => '0644',
-    content => template("beegfs/${major_version}/beegfs-storage.conf.erb"),
+    content => template("beegfs/${_release_major}/beegfs-storage.conf.erb"),
     require => [
       File[$interfaces_file],
       Package['beegfs-storage'],

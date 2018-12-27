@@ -24,7 +24,7 @@ describe 'beegfs::mgmtd' do
     {
     :user  => user,
     :group => group,
-    :major_version => '2015.03',
+    :release => '2015.03',
   }
   end
 
@@ -49,7 +49,7 @@ describe 'beegfs::mgmtd' do
       {
       :user  => user,
       :group => group,
-      :major_version => '2015.03',
+      :release => '2015.03',
     }
     end
     it { is_expected.to contain_package('beegfs-mgmtd') }
@@ -77,7 +77,7 @@ describe 'beegfs::mgmtd' do
       :package_ensure => version,
       :user           => user,
       :group          => group,
-      :major_version => '2015.03',
+      :release => '2015.03',
     }
     end
 
@@ -104,7 +104,7 @@ describe 'beegfs::mgmtd' do
       :interfaces_file => '/etc/beegfs/mgmtd.itf',
       :user            => user,
       :group           => group,
-      :major_version   => '2015.03',
+      :release   => '2015.03',
     }
     end
 
@@ -135,7 +135,7 @@ describe 'beegfs::mgmtd' do
     let(:params) do
       {
       :log_level => 5,
-      :major_version => '2015.03',
+      :release => '2015.03',
     }
     end
 

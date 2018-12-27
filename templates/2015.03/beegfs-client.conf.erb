@@ -1,3 +1,4 @@
+# -*- mode: conf-unix; -*-
 # This is a config file for BeeGFS clients.
 # http://www.beegfs.com
 
@@ -22,8 +23,8 @@ sysMgmtdHost                  = <%= @mgmtd_host %>
 #
 
 connAuthFile                  =
-connClientPortUDP             = <%= @client_udp %>
-connHelperdPortTCP            = <%= @helperd_tcp %>
+connClientPortUDP             = <%= @client_udp_port %>
+connHelperdPortTCP            = <%= @helperd_tcp_port %>
 connMgmtdPortTCP              = <%= @mgmtd_tcp_port %>
 connMgmtdPortUDP              = <%= @mgmtd_udp_port %>
 connPortShift                 = 0
@@ -45,11 +46,7 @@ logHelperdIP                  =
 logLevel                      = <%= @log_level %>
 logType                       = helperd
 
-<% if @enable_quota -%>
-quotaEnabled                  = true
-<% else -%>
-quotaEnabled                  = false
-<% end -%>
+quotaEnableEnforcement        = <%= @enable_quota %>
 
 sysCreateHardlinksAsSymlinks  = false
 sysMountSanityCheckMS         = 11000
@@ -65,11 +62,7 @@ tunePreferredStorageFile      =
 tuneRemoteFSync               = true
 tuneUseGlobalAppendLocks      = false
 tuneUseGlobalFileLocks        = false
-<% if @tune_refresh_on_get_attr == true -%>
-tuneRefreshOnGetAttr          = true
-<% else -%>
-tuneRefreshOnGetAttr          = false
-<% end -%>
+tuneRefreshOnGetAttr          = <%= @tune_refresh_on_get_attr %>
 
 #
 # --- Section 1.3: [Enterprise Features] ---
@@ -78,13 +71,8 @@ tuneRefreshOnGetAttr          = false
 # enterprise features.
 #
 
-<% if @enable_acl -%>
-sysACLsEnabled                = true
-sysXAttrsEnabled              = true
-<% else -%>
-sysACLsEnabled                = false
-sysXAttrsEnabled              = false
-<% end -%>
+sysACLsEnabled                = <%= @enable_acl %>
+sysXAttrsEnabled              = <%= @enable_acl %>
 
 
 #

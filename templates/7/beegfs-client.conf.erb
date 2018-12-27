@@ -23,8 +23,8 @@ sysMgmtdHost                  = <%= @mgmtd_host %>
 #
 
 connAuthFile                  =
-connClientPortUDP             = <%= @client_udp %>
-connHelperdPortTCP            = <%= @helperd_tcp %>
+connClientPortUDP             = <%= @client_udp_port %>
+connHelperdPortTCP            = <%= @helperd_tcp_port %>
 connMgmtdPortTCP              = <%= @mgmtd_tcp_port %>
 connMgmtdPortUDP              = <%= @mgmtd_udp_port %>
 connPortShift                 = 0
@@ -45,7 +45,7 @@ connTcpOnlyFilterFile         =
 logClientID                   = false
 logHelperdIP                  =
 logLevel                      = <%= @log_level %>
-logType                       = helperd
+logType                       = <%= @log_type %>
 
 quotaEnabled                  = <%= @enable_quota %>
 
@@ -55,7 +55,7 @@ sysSessionCheckOnClose        = false
 sysSyncOnClose                = false
 sysTargetOfflineTimeoutSecs   = 900
 sysUpdateTargetStatesSecs     = 60
-sysXAttrsEnabled              = <%= if @enable_acl %>
+sysXAttrsEnabled              = <%= @enable_acl %>
 
 tuneFileCacheType             = buffered
 tunePreferredMetaFile         =
@@ -72,7 +72,7 @@ tuneUseGlobalFileLocks        = false
 # enterprise features.
 #
 
-sysACLsEnabled                = <%= if @enable_acl %>
+sysACLsEnabled                = <%= @enable_acl %>
 
 
 #

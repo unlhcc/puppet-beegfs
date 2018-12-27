@@ -31,10 +31,10 @@ connFallbackExpirationSecs   = 900
 connInterfacesFile           = <%= @interfaces_file %>
 connMaxInternodeNum          = 32
 
-connMetaPortTCP              = 8005
-connMetaPortUDP              = 8005
-connMgmtdPortTCP             = 8008
-connMgmtdPortUDP             = 8008
+connMetaPortTCP              = <%= @meta_tcp_port %>
+connMetaPortUDP              = <%= @meta_udp_port %>
+connMgmtdPortTCP             = <%= @mgmtd_tcp_port %>
+connMgmtdPortUDP             = <%= @mgmtd_udp_port %>
 connPortShift                = 0
 
 connNetFilterFile            =
@@ -48,7 +48,7 @@ logLevel                     = <%= @log_level %>
 logNoDate                    = false
 logNumLines                  = 50000
 logNumRotatedFiles           = 5
-logStdFile                   = /var/log/beegfs-meta.log
+logStdFile                   = <%= @log_dir %>/beegfs-meta.log
 
 runDaemonized                = true
 

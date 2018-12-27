@@ -27,7 +27,7 @@ describe 'beegfs::storage' do
     {
     'user'  => user,
     'group' => group,
-    :major_version => '2015.03',
+    :release => '2015.03',
   }
   end
 
@@ -91,7 +91,7 @@ describe 'beegfs::storage' do
       {
       'user'  => user,
       'group' => group,
-      :major_version => '2015.03',
+      :release => '2015.03',
       :storage_directory => ['/srv/beefgs/storage'],
     }
     end
@@ -100,7 +100,7 @@ describe 'beegfs::storage' do
     it_behaves_like 'debian-storage', 'Ubuntu', 'precise'
   end
 
-  shared_examples 'beegfs-version' do |major_version|
+  shared_examples 'beegfs-version' do |release|
 
     let(:user) { 'beegfs' }
     let(:group) { 'beegfs' }
@@ -109,7 +109,7 @@ describe 'beegfs::storage' do
     {
       'user'  => user,
       'group' => group,
-      :major_version => major_version,
+      :release => release,
       :storage_directory => ['/srv/beefgs/storage'],
     }
     end
@@ -119,7 +119,7 @@ describe 'beegfs::storage' do
       let(:params) do
         {
         :package_ensure => version,
-        :major_version  => major_version,
+        :release  => release,
       }
       end
 
@@ -146,7 +146,7 @@ describe 'beegfs::storage' do
         :interfaces_file => '/etc/beegfs/store.itf',
         :user            => user,
         :group           => group,
-        :major_version   => major_version,
+        :release   => release,
       }
       end
 
@@ -177,7 +177,7 @@ describe 'beegfs::storage' do
       let(:params) do
         {
         :log_level => 5,
-        :major_version => major_version,
+        :release => release,
       }
       end
 
@@ -192,7 +192,7 @@ describe 'beegfs::storage' do
       let(:params) do
         {
         :mgmtd_host => 'mgmtd.beegfs.com',
-        :major_version => major_version,
+        :release => release,
       }
       end
 
@@ -207,7 +207,7 @@ describe 'beegfs::storage' do
       let(:params) do
         {
         :mgmtd_tcp_port => 9009,
-        :major_version  => major_version,
+        :release  => release,
       }
       end
 
@@ -222,7 +222,7 @@ describe 'beegfs::storage' do
       let(:params) do
         {
         :storage_directory => ['/var/storage1','/var/storage2'],
-        :major_version => major_version,
+        :release => release,
         :user => user,
         :group => group,
       }
@@ -255,7 +255,7 @@ describe 'beegfs::storage' do
       let(:params) do
         {
         :allow_first_run_init => false,
-        :major_version => major_version,
+        :release => release,
       }
       end
 

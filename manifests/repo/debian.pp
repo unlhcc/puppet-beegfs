@@ -1,10 +1,9 @@
 # Class: beegfs::repo::debian
 
 class beegfs::repo::debian (
-  $release,
-  $manage_repo    = true,
-  $package_source = $beegfs::package_source,
-  Beegfs::Major_version $major_version  = $beegfs::major_version,
+  Boolean         $manage_repo    = true,
+  Enum['beegfs']  $package_source = $beegfs::package_source,
+  Beegfs::Release $release        = $beegfs::release,
 ) {
 
   anchor { 'beegfs::apt_repo' : }
@@ -15,7 +14,7 @@ class beegfs::repo::debian (
     case $package_source {
       'beegfs': {
         apt::source { 'beegfs':
-          location     => "http://www.beegfs.com/release/beegfs_${major_version}",
+          location     => "http://www.beegfs.com/release/beegfs_${release}",
           repos        => 'non-free',
           architecture => 'amd64',
           release      => $release,
@@ -30,7 +29,6 @@ class beegfs::repo::debian (
           before       => Anchor['beegfs::apt_repo'],
         }
       }
-      default: {}
     }
     Class['apt::update'] -> Package<| tag == 'beegfs' |>
   }

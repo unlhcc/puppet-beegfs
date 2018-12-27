@@ -18,8 +18,8 @@
 storeMgmtdDirectory      = <%= @directory %>
 storeAllowFirstRunInit   = <%= @allow_first_run_init %>
 
-sysAllowNewServers       = <% if @allow_new_servers -%>
-sysAllowNewTargets       = <% if @allow_new_targets -%>
+sysAllowNewServers       = <%= @allow_new_servers %>
+sysAllowNewTargets       = <%= @allow_new_targets %>
 
 
 #
@@ -29,8 +29,8 @@ sysAllowNewTargets       = <% if @allow_new_targets -%>
 connAuthFile                           =
 connBacklogTCP                         = 128
 connInterfacesFile                     = <%= @interfaces_file %>
-connMgmtdPortTCP                       = 8008
-connMgmtdPortUDP                       = 8008
+connMgmtdPortTCP                       = <%= @mgmtd_tcp_port %>
+connMgmtdPortUDP                       = <%= @mgmtd_udp_port %>
 connNetFilterFile                      =
 connPortShift                          = 0
 
@@ -39,7 +39,7 @@ logLevel                               = <%= @log_level %>
 logNoDate                              = false
 logNumLines                            = 50000
 logNumRotatedFiles                     = 5
-logStdFile                             = /var/log/beegfs-mgmtd.log
+logStdFile                             = <%= @log_dir %>/beegfs-mgmtd.log
 
 quotaQueryGIDFile                      =
 quotaQueryGIDRange                     =
