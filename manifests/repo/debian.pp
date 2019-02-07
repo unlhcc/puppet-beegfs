@@ -29,6 +29,9 @@ class beegfs::repo::debian (
           before       => Anchor['beegfs::apt_repo'],
         }
       }
+      default: {
+        fail("Unknown package source '${package_source}'")
+      }
     }
     Class['apt::update'] -> Package<| tag == 'beegfs' |>
   }

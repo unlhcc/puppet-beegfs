@@ -3,14 +3,14 @@
 # This class is called from beegfs for install.
 #
 class beegfs::install(
-  $manage_repo    = $beegfs::manage_repo,
-  $package_source = $beegfs::package_source,
-  $package_ensure = $beegfs::package_ensure,
-  $log_dir        = $beegfs::log_dir,
-  $user           = $beegfs::user,
-  $group          = $beegfs::group,
-  $release        = $beegfs::params::release,
-  ) {
+  Boolean               $manage_repo    = $beegfs::manage_repo,
+  Beegfs::PackageSource $package_source = $beegfs::package_source,
+  String                $package_ensure = $beegfs::package_ensure,
+  Beegfs::LogDir        $log_dir        = $beegfs::log_dir,
+  String                $user           = $beegfs::user,
+  String                $group          = $beegfs::group,
+  Beegfs::Release       $release        = $beegfs::release,
+) {
 
   class {'::beegfs::repo':
     manage_repo    => $manage_repo,

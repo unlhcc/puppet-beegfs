@@ -19,7 +19,7 @@ class beegfs (
   Beegfs::ByteAmount          $storage_space_low_limit       = '100G',
   Beegfs::ByteAmount          $storage_space_emergency_limit = '20G',
   Beegfs::PackageSource       $package_source                = 'beegfs',
-                              $version                       = undef,
+  Optional[String]            $version                       = undef,
   Beegfs::LogDir              $log_dir                       = '/var/log/beegfs',
   Beegfs::LogType             $log_type                      = 'logfile',
   Beegfs::LogLevel            $log_level                     = 3,
@@ -43,9 +43,5 @@ class beegfs (
   Stdlib::Port                $mgmtd_udp_port                = 8008,
 ) inherits ::beegfs::params {
 
-  $package_ensure = if $version == undef {
-    'present'
-  } else {
-    $version
-  }
+  $package_ensure = pick($version, 'present')
 }

@@ -22,13 +22,16 @@ class beegfs::repo::redhat (
     case $package_source {
       'beegfs': {
         yumrepo { "beegfs_rhel${_os_release}":
-          ensure    => 'present',
-          descr     => "BeeGFS ${release} (rhel${_os_release})",
-          baseurl   => "https://www.beegfs.io/release/beegfs_${_release}/dists/rhel${_os_release}",
-          gpgkey    => "https://www.beegfs.io/release/beegfs_${_release}/gpg/RPM-GPG-KEY-beegfs",
-          enabled   => '1',
-          gpgcheck  => '1',
+          ensure   => 'present',
+          descr    => "BeeGFS ${release} (rhel${_os_release})",
+          baseurl  => "https://www.beegfs.io/release/beegfs_${_release}/dists/rhel${_os_release}",
+          gpgkey   => "https://www.beegfs.io/release/beegfs_${_release}/gpg/RPM-GPG-KEY-beegfs",
+          enabled  => '1',
+          gpgcheck => '1',
         }
+      }
+      default: {
+        fail("Unknown package source '${package_source}'")
       }
     }
   }

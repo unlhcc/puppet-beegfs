@@ -19,12 +19,14 @@ describe 'beegfs::client' do
 
   let(:user) { 'beegfs' }
   let(:group) { 'beegfs' }
+  let(:release) { '2015.03' }
 
   let(:params) do
     {
     :user  => user,
     :group => group,
-  }
+    :release => release,
+    }
   end
 
   it { is_expected.to contain_class('beegfs::client') }

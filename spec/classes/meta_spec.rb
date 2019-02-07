@@ -24,7 +24,7 @@ describe 'beegfs::meta' do
     {
     :user  => user,
     :group => group,
-    :release => '2015.03',
+    :release => '7.1',
   }
   end
 
