@@ -33,11 +33,17 @@ so that you don't have to specify `mgmtd_host` for each component.
 
 defining a mount
 ```puppet
-beegfs::mount{ 'mnt-share':
-  cfg => '/etc/beegfs/beegfs-client.conf',
-  mnt   => '/mnt/share',
-  user  => 'beegfs',
-  group => 'beegfs',
+beegfs::mount { '/mnt/share':
+  user       => 'beegfs',
+  group      => 'beegfs',
+}
+```
+
+defining a second mount to a different management server
+```puppet
+beegfs::mount { '/mnt/work':
+  client_cfg => '/etc/beegfs/beegfs-client-work.conf',
+  mgmtd_host => 'workmgmt.example.edu',
 }
 ```
 

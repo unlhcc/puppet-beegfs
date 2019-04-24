@@ -9,19 +9,12 @@ class beegfs::client (
   $kernel_ensure            = present,
   $interfaces               = ['eth0'],
   $interfaces_file          = '/etc/beegfs/interfaces.client',
-  $log_level                = 3,
-  $client_udp               = 8004,
   $helperd_tcp              = 8006,
-  $mgmtd_host               = hiera('beegfs::mgmtd_host', $beegfs::mgmtd_host),
-  $mgmtd_tcp_port           = 8008,
-  $mgmtd_udp_port           = 8008,
   $major_version            = $beegfs::major_version,
   $kernel_packages          = $beegfs::params::kernel_packages,
   $autobuild                = true,
   $autobuild_args           = '-j8',
   $tune_refresh_on_get_attr = false,
-  $enable_quota             = $beegfs::enable_quota,
-  $enable_acl               = $beegfs::enable_acl,
   $netfilters               = [''],
   $netfilter_file           = '/etc/beegfs/beegfs-netfilter.conf',
 ) inherits beegfs {
@@ -59,18 +52,6 @@ class beegfs::client (
     group   => $group,
     mode    => '0644',
     content => template('beegfs/beegfs-netfilter.erb'),
-  }
-
-  file { '/etc/beegfs/beegfs-client.conf':
-    ensure  => present,
-    owner   => $user,
-    group   => $group,
-    mode    => '0644',
-    require =>[
-      Package['beegfs-utils'],
-      File[$interfaces_file]
-    ],
-    content => template("beegfs/${major_version}/beegfs-client.conf.erb"),
   }
 
   file { '/etc/beegfs/beegfs-client-autobuild.conf':
@@ -125,7 +106,6 @@ class beegfs::client (
     ],
     subscribe  => [
       Concat['/etc/beegfs/beegfs-mounts.conf'],
-      File['/etc/beegfs/beegfs-client.conf'],
       File['/etc/beegfs/beegfs-helperd.conf'],
       Exec['/etc/init.d/beegfs-client rebuild'],
       File[$interfaces_file],
