@@ -14,6 +14,7 @@ define beegfs::mount (
   $mgmtd_host      = hiera('beegfs::mgmtd_host', $beegfs::mgmtd_host),
   $client_udp      = 8004,
   $helperd_tcp     = 8006,
+  $helperd_ip      = '',
   $mgmtd_tcp_port  = 8008,
   $mgmtd_udp_port  = 8008,
   $enable_quota    = $beegfs::enable_quota,
