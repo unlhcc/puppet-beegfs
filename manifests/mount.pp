@@ -19,6 +19,7 @@ define beegfs::mount (
   $enable_quota    = $beegfs::enable_quota,
   $enable_acl      = $beegfs::enable_acl,
   $netfilter_file  = '/etc/beegfs/beegfs-netfilter.conf',
+  $vfstype         = 'beegfs',
 ) {
 
   file { $name:
@@ -30,7 +31,7 @@ define beegfs::mount (
 
   concat::fragment { $name:
     target  => $mounts_cfg,
-    content => "${name} ${client_cfg} beegfs ${mntops}",
+    content => "${name} ${client_cfg} ${vfstype} ${mntops}",
     require => File[$name],
   }
 
