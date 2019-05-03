@@ -72,7 +72,11 @@ tuneNumStreamListeners       = 1
 tuneNumWorkers               = 12
 tuneUseAggressiveStreamPoll  = false
 tuneUsePerTargetWorkers      = true
+<%if @per_user_msg_queues -%>
+tuneUsePerUserMsgQueues      = true
+<% else -%>
 tuneUsePerUserMsgQueues      = false
+<% end -%>
 tuneWorkerBufSize            = 4m
 
 

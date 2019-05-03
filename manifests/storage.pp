@@ -18,6 +18,7 @@ class beegfs::storage (
   $mgmtd_udp_port       = 8008,
   $major_version        = $beegfs::major_version,
   $enable_quota         = $beegfs::enable_quota,
+  $per_user_msg_queues  = false,
 ) inherits ::beegfs {
 
   require ::beegfs::install
