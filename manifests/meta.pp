@@ -17,6 +17,7 @@ class beegfs::meta (
           $major_version        = $beegfs::major_version,
   Boolean $enable_acl           = $beegfs::enable_acl,
   Boolean $per_user_msg_queues  = $beegfs::per_user_msg_queues,
+  Integer $num_workers          = 0,
 ) inherits ::beegfs {
 
   require ::beegfs::install

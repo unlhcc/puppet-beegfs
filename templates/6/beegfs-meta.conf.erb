@@ -62,7 +62,7 @@ sysUpdateTargetStatesSecs    = 30
 
 tuneBindToNumaZone           =
 tuneNumStreamListeners       = 1
-tuneNumWorkers               = 0
+tuneNumWorkers               = <%= @num_workers %>
 tuneTargetChooser            = randomized
 tuneUseAggressiveStreamPoll  = false
 tuneUsePerUserMsgQueues      = <%= @per_user_msg_queues %>

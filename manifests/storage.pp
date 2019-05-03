@@ -19,6 +19,7 @@ class beegfs::storage (
           $major_version        = $beegfs::major_version,
   Boolean $enable_quota         = $beegfs::enable_quota,
   Boolean $per_user_msg_queues  = $beegfs::per_user_msg_queues,
+  Integer $num_workers          = 12,
 ) inherits ::beegfs {
 
   require ::beegfs::install
