@@ -70,7 +70,7 @@ tuneNumStreamListeners       = 1
 tuneNumWorkers               = 0
 tuneTargetChooser            = randomized
 tuneUseAggressiveStreamPoll  = false
-tuneUsePerUserMsgQueues      = false
+tuneUsePerUserMsgQueues      = <%= scope.function_bool2str([@per_user_msg_queues]) %>
 
 
 #

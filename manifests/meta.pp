@@ -16,6 +16,7 @@ class beegfs::meta (
   $interfaces_file      = '/etc/beegfs/interfaces.meta',
   $major_version        = $beegfs::major_version,
   $enable_acl           = $beegfs::enable_acl,
+  $per_user_msg_queues  = false,
 ) inherits ::beegfs {
 
   require ::beegfs::install
