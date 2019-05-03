@@ -15,18 +15,10 @@
 #
 
 storeMgmtdDirectory      = <%= @directory %>
-storeAllowFirstRunInit   = <%= @allow_first_run_init %>
+storeAllowFirstRunInit   = <%= scope.function_bool2str([@allow_first_run_init]) %>
 
-<% if @allow_new_servers -%>
-sysAllowNewServers       = true
-<% else -%>
-sysAllowNewServers       = false
-<% end -%>
-<% if @allow_new_targets -%>
-sysAllowNewTargets       = true
-<% else -%>
-sysAllowNewTargets       = false
-<% end -%>
+sysAllowNewServers       = <%= scope.function_bool2str([@allow_new_servers]) %>
+sysAllowNewTargets       = <%= scope.function_bool2str([@allow_new_targets]) %>
 
 
 #
@@ -79,11 +71,7 @@ tuneStorageSpaceEmergencyLimit         = <%= @storage_space_emergency_limit %>
 # enterprise features.
 #
 
-<% if @enable_quota -%>
-quotaEnableEnforcement                 = true
-<% else -%>
-quotaEnableEnforcement                 = false
-<% end -%>
+quotaEnableEnforcement                 = <%= scope.function_bool2str([@enable_quota]) %>
 
 
 #

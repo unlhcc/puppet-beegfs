@@ -45,13 +45,9 @@ logLevel                     = <%= @log_level %>
 logNoDate                    = false
 logNumLines                  = 50000
 logNumRotatedFiles           = 5
-logStdFile                   = /var/log/beegfs-storage.log
+logStdFile                   = <%= @log_dir %>/beegfs-storage.log
 
-<% if @enable_quota -%>
-quotaEnableEnforcement       = true
-<% else -%>
-quotaEnableEnforcement       = false
-<% end -%>
+quotaEnableEnforcement       = <%= scope.function_bool2str([@enable_quota]) %>
 
 runDaemonized                = true
 
@@ -72,7 +68,7 @@ tuneNumStreamListeners       = 1
 tuneNumWorkers               = 12
 tuneUseAggressiveStreamPoll  = false
 tuneUsePerTargetWorkers      = true
-tuneUsePerUserMsgQueues      = false
+tuneUsePerUserMsgQueues      = <%= scope.function_bool2str([@per_user_msg_queues]) %>
 tuneWorkerBufSize            = 4m
 
 

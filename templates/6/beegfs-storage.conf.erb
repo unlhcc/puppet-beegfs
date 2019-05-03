@@ -47,11 +47,7 @@ logNumLines                  = 50000
 logNumRotatedFiles           = 5
 logStdFile                   = <%= @log_dir %>/beegfs-storage.log
 
-<% if @enable_quota -%>
-quotaEnableEnforcement       = true
-<% else -%>
-quotaEnableEnforcement       = false
-<% end -%>
+quotaEnableEnforcement       = <%= scope.function_bool2str([@enable_quota]) %>
 
 runDaemonized                = true
 

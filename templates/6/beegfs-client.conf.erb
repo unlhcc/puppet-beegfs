@@ -45,11 +45,7 @@ logHelperdIP                  = <%= @helperd_ip %>
 logLevel                      = <%= @log_level %>
 logType                       = helperd
 
-<% if @enable_quota -%>
-quotaEnabled                  = true
-<% else -%>
-quotaEnabled                  = false
-<% end -%>
+quotaEnabled                  = <%= scope.function_bool2str([@enable_quota]) %>
 
 sysCreateHardlinksAsSymlinks  = false
 sysMountSanityCheckMS         = 11000
@@ -65,11 +61,7 @@ tunePreferredStorageFile      =
 tuneRemoteFSync               = true
 tuneUseGlobalAppendLocks      = false
 tuneUseGlobalFileLocks        = false
-<% if @tune_refresh_on_get_attr == true -%>
-tuneRefreshOnGetAttr          = true
-<% else -%>
-tuneRefreshOnGetAttr          = false
-<% end -%>
+tuneRefreshOnGetAttr          = <%= scope.function_bool2str([@tune_refresh_on_get_attr]) %>
 
 #
 # --- Section 1.3: [Enterprise Features] ---
@@ -78,13 +70,9 @@ tuneRefreshOnGetAttr          = false
 # enterprise features.
 #
 
-<% if @enable_acl -%>
-sysACLsEnabled                = true
-sysXAttrsEnabled              = true
-<% else -%>
-sysACLsEnabled                = false
-sysXAttrsEnabled              = false
-<% end -%>
+sysACLsEnabled                = <%= scope.function_bool2str([@enable_acl]) %>
+sysXAttrsEnabled              = <%= scope.function_bool2str([@enable_acl]) %>
+
 
 #
 # --- Section 2: [Mount Options] ---
