@@ -3,22 +3,22 @@
 # This module manages beegfs storage service
 #
 class beegfs::storage (
-  $enable               = true,
-  $storage_directory    = $beegfs::storage_directory,
-  $allow_first_run_init = $beegfs::allow_first_run_init,
-  $mgmtd_host           = $beegfs::mgmtd_host,
-  $log_dir              = $beegfs::log_dir,
-  $log_level            = 3,
-  $user                 = $beegfs::user,
-  $group                = $beegfs::group,
-  $package_ensure       = $beegfs::package_ensure,
-  $interfaces           = ['eth0'],
-  $interfaces_file      = '/etc/beegfs/interfaces.storage',
-  $mgmtd_tcp_port       = 8008,
-  $mgmtd_udp_port       = 8008,
-  $major_version        = $beegfs::major_version,
-  $enable_quota         = $beegfs::enable_quota,
-  $per_user_msg_queues  = false,
+          $enable               = true,
+          $storage_directory    = $beegfs::storage_directory,
+  Boolean $allow_first_run_init = $beegfs::allow_first_run_init,
+          $mgmtd_host           = $beegfs::mgmtd_host,
+          $log_dir              = $beegfs::log_dir,
+  Integer $log_level            = 3,
+          $user                 = $beegfs::user,
+          $group                = $beegfs::group,
+          $package_ensure       = $beegfs::package_ensure,
+          $interfaces           = ['eth0'],
+          $interfaces_file      = '/etc/beegfs/interfaces.storage',
+  Integer $mgmtd_tcp_port       = 8008,
+  Integer $mgmtd_udp_port       = 8008,
+          $major_version        = $beegfs::major_version,
+  Boolean $enable_quota         = $beegfs::enable_quota,
+  Boolean $per_user_msg_queues  = $beegfs::per_user_msg_queues,
 ) inherits ::beegfs {
 
   require ::beegfs::install

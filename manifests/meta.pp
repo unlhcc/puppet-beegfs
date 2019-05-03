@@ -3,20 +3,20 @@
 # This module manages beegfs meta service
 #
 class beegfs::meta (
-  $enable               = true,
-  $meta_directory       = $beegfs::meta_directory,
-  $allow_first_run_init = $beegfs::allow_first_run_init,
-  $mgmtd_host           = $beegfs::mgmtd_host,
-  $log_dir              = $beegfs::log_dir,
-  $log_level            = 3,
-  $user                 = $beegfs::user,
-  $group                = $beegfs::group,
-  $package_ensure       = hiera('beegfs::package_ensure', $beegfs::package_ensure),
-  $interfaces           = ['eth0'],
-  $interfaces_file      = '/etc/beegfs/interfaces.meta',
-  $major_version        = $beegfs::major_version,
-  $enable_acl           = $beegfs::enable_acl,
-  $per_user_msg_queues  = false,
+          $enable               = true,
+          $meta_directory       = $beegfs::meta_directory,
+  Boolean $allow_first_run_init = $beegfs::allow_first_run_init,
+          $mgmtd_host           = $beegfs::mgmtd_host,
+          $log_dir              = $beegfs::log_dir,
+  Integer $log_level            = 3,
+          $user                 = $beegfs::user,
+          $group                = $beegfs::group,
+          $package_ensure       = hiera('beegfs::package_ensure', $beegfs::package_ensure),
+          $interfaces           = ['eth0'],
+          $interfaces_file      = '/etc/beegfs/interfaces.meta',
+          $major_version        = $beegfs::major_version,
+  Boolean $enable_acl           = $beegfs::enable_acl,
+  Boolean $per_user_msg_queues  = $beegfs::per_user_msg_queues,
 ) inherits ::beegfs {
 
   require ::beegfs::install

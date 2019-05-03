@@ -45,7 +45,7 @@ logHelperdIP                  = <%= @helperd_ip %>
 logLevel                      = <%= @log_level %>
 logType                       = helperd
 
-quotaEnabled                  = <%= scope.function_bool2str([@enable_quota]) %>
+quotaEnabled                  = <%= @enable_quota %>
 
 sysCreateHardlinksAsSymlinks  = false
 sysMountSanityCheckMS         = 11000
@@ -61,7 +61,7 @@ tunePreferredStorageFile      =
 tuneRemoteFSync               = true
 tuneUseGlobalAppendLocks      = false
 tuneUseGlobalFileLocks        = false
-tuneRefreshOnGetAttr          = <%= scope.function_bool2str([@tune_refresh_on_get_attr]) %>
+tuneRefreshOnGetAttr          = <%= @tune_refresh_on_get_attr %>
 
 #
 # --- Section 1.3: [Enterprise Features] ---
@@ -70,8 +70,8 @@ tuneRefreshOnGetAttr          = <%= scope.function_bool2str([@tune_refresh_on_ge
 # enterprise features.
 #
 
-sysACLsEnabled                = <%= scope.function_bool2str([@enable_acl]) %>
-sysXAttrsEnabled              = <%= scope.function_bool2str([@enable_acl]) %>
+sysACLsEnabled                = <%= @enable_acl %>
+sysXAttrsEnabled              = <%= @enable_acl %>
 
 
 #

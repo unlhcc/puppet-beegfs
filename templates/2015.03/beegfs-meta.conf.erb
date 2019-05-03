@@ -17,7 +17,7 @@
 sysMgmtdHost                 = <%= @mgmtd_host %>
 
 storeMetaDirectory           = <%= @meta_directory %>
-storeAllowFirstRunInit       = <%= scope.function_bool2str([@allow_first_run_init]) %>
+storeAllowFirstRunInit       = <%= @allow_first_run_init %>
 
 
 #
@@ -50,8 +50,8 @@ logStdFile                   = <%= @log_dir %>/beegfs-meta.log
 
 runDaemonized                = true
 
-storeClientXAttrs            = <%= scope.function_bool2str([@enable_acl]) %>
-storeClientACLs              = <%= scope.function_bool2str([@enable_acl]) %>
+storeClientXAttrs            = <%= @enable_acl %>
+storeClientACLs              = <%= @enable_acl %>
 # This following option can only be changed before the first service startup.
 # (see https://www.beegfs.io/wiki/FAQ#acl)
 # Therefore we keep it 'true' irrespective of the setting of the enable_acl switch.
@@ -65,7 +65,7 @@ tuneNumStreamListeners       = 1
 tuneNumWorkers               = 0
 tuneTargetChooser            = randomized
 tuneUseAggressiveStreamPoll  = false
-tuneUsePerUserMsgQueues      = <%= scope.function_bool2str([@per_user_msg_queues]) %>
+tuneUsePerUserMsgQueues      = <%= @per_user_msg_queues %>
 
 
 #

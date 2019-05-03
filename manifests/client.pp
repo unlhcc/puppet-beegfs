@@ -3,20 +3,19 @@
 # This module manages beegfs client
 #
 class beegfs::client (
-  $user                     = $beegfs::user,
-  $group                    = $beegfs::group,
-  $package_ensure           = $beegfs::package_ensure,
-  $kernel_ensure            = present,
-  $interfaces               = ['eth0'],
-  $interfaces_file          = '/etc/beegfs/interfaces.client',
-  $helperd_tcp              = 8006,
-  $major_version            = $beegfs::major_version,
-  $kernel_packages          = $beegfs::params::kernel_packages,
-  $autobuild                = true,
-  $autobuild_args           = '-j8',
-  $tune_refresh_on_get_attr = false,
-  $netfilters               = [''],
-  $netfilter_file           = '/etc/beegfs/beegfs-netfilter.conf',
+          $user            = $beegfs::user,
+          $group           = $beegfs::group,
+          $package_ensure  = $beegfs::package_ensure,
+          $kernel_ensure   = present,
+          $interfaces      = ['eth0'],
+          $interfaces_file = '/etc/beegfs/interfaces.client',
+  Integer $helperd_tcp     = 8006,
+          $major_version   = $beegfs::major_version,
+          $kernel_packages = $beegfs::params::kernel_packages,
+  Boolean $autobuild       = true,
+          $autobuild_args  = '-j8',
+          $netfilters      = [''],
+          $netfilter_file  = '/etc/beegfs/beegfs-netfilter.conf',
 ) inherits beegfs {
 
   require ::beegfs::install
