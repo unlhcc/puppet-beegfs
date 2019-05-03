@@ -65,7 +65,7 @@ tuneFileWriteSyncSize        = 0m
 tuneNumResyncGatherSlaves    = 6
 tuneNumResyncSlaves          = 12
 tuneNumStreamListeners       = 1
-tuneNumWorkers               = 12
+tuneNumWorkers               = <%= @num_workers %>
 tuneUseAggressiveStreamPoll  = false
 tuneUsePerTargetWorkers      = true
 tuneUsePerUserMsgQueues      = <%= @per_user_msg_queues %>
