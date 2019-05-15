@@ -14,18 +14,7 @@ group :test do
   if RUBY_VERSION < "2.2.0"
     gem 'listen', '~> 3.0.0'
   end
-  if RUBY_VERSION < "2.0.0"
-    gem 'json', '< 2.0' # newer versions requires at least ruby 2.0
-    gem 'json_pure', '< 2.0.0'
-    gem 'fog-google', '< 0.1.1'
-    gem 'google-api-client', '< 0.9'
-    gem 'nokogiri', '< 1.7.0'
-    gem 'public_suffix', '< 1.5.0'
-    gem 'metadata-json-lint', '< 1.2.0', require: false
-  else
-    gem 'metadata-json-lint', require: false
-  end
-
+  gem "nokogiri", ">= 1.8.5"
   gem "puppet-lint-absolute_classname-check"
   gem "puppet-lint-leading_zero-check"
   gem "puppet-lint-trailing_comma-check"
