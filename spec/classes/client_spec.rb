@@ -123,6 +123,12 @@ describe 'beegfs::client' do
       'ensure' => '12.036+nmu3'
     })
     end
+
+    it do
+      is_expected.to contain_yumrepo('beegfs_rhel6').with({
+      'ensure' => 'present'
+    })
+    end
   end
 
   context 'with given version' do
