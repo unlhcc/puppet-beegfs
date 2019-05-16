@@ -40,6 +40,7 @@ group :system_tests do
   else
     gem 'beaker', '< 3'
   end
-  gem "beaker-rspec"
+  gem 'beaker-rspec'
+  gem 'beaker-docker'
   gem "beaker-puppet_install_helper"
 end
