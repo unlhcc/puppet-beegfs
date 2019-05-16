@@ -1,7 +1,5 @@
 # puppet-beegfs
 
-
-
 [![Puppet
 Forge](http://img.shields.io/puppetforge/v/deric/beegfs.svg)](https://forge.puppetlabs.com/deric/beegfs) [![Build Status](https://travis-ci.org/deric/puppet-beegfs.svg?branch=master)](https://travis-ci.org/deric/puppet-beegfs) [![Puppet Forge
 Downloads](http://img.shields.io/puppetforge/dt/deric/beegfs.svg)](https://forge.puppetlabs.com/deric/beegfs/scores)
@@ -116,7 +114,7 @@ beegfs::storage::interfaces:
 ## Requirements
 
  * Ruby 2.0 or newer
- * at least Puppet 4.9 and < 6.0
+ * at least Puppet 4.9
 
 ## License
 
