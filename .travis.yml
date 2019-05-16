@@ -23,12 +23,14 @@ matrix:
     - rvm: 2.3.3
       dist: xenial
       env: RAKE_ENV=ci BEAKER_debug=true BEAKER_set=debian9-5.5
+      bundler_args: --without development
       script: bundle exec rake acceptance
       services: docker
       sudo: required
     - rvm: 2.3.3
       dist: xenial
       env: RAKE_ENV=ci BEAKER_debug=true BEAKER_set=debian9-6.3
+      bundler_args: --without development
       script: bundle exec rake acceptance
       services: docker
       sudo: required
