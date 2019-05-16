@@ -3,43 +3,33 @@
 # This module manages beegfs storage service
 #
 class beegfs::storage (
-  $enable               = true,
-  $storage_directory    = $beegfs::storage_directory,
-  $allow_first_run_init = true,
-  $mgmtd_host           = $beegfs::mgmtd_host,
-  $log_dir              = $beegfs::log_dir,
-  $log_level            = 3,
-  $user                 = $beegfs::user,
-  $group                = $beegfs::group,
-  $package_ensure       = $beegfs::package_ensure,
-  $interfaces           = ['eth0'],
-  $interfaces_file      = '/etc/beegfs/interfaces.storage',
-  $mgmtd_tcp_port       = 8008,
-  $mgmtd_udp_port       = 8008,
-  $major_version        = $beegfs::major_version,
-  $enable_quota         = $beegfs::enable_quota,
+  Boolean                     $enable               = true,
+  Array[Stdlib::AbsolutePath] $storage_directory    = $beegfs::storage_directory,
+  Boolean                     $allow_first_run_init = true,
+  Stdlib::Host                $mgmtd_host           = $beegfs::mgmtd_host,
+  Beegfs::LogDir              $log_dir              = $beegfs::log_dir,
+  Beegfs::LogType             $log_type             = $beegfs::log_type,
+  Beegfs::LogLevel            $log_level            = $beegfs::log_level,
+  String                      $user                 = $beegfs::user,
+  String                      $group                = $beegfs::group,
+                              $package_ensure       = $beegfs::package_ensure,
+  Array[String]               $interfaces           = ['eth0'],
+  Stdlib::AbsolutePath        $interfaces_file      = '/etc/beegfs/interfaces.storage',
+  Stdlib::Port                $mgmtd_tcp_port       = 8008,
+  Stdlib::Port                $mgmtd_udp_port       = 8008,
+  Beegfs::Release             $release              = $beegfs::release,
+  Boolean                     $enable_quota         = $beegfs::enable_quota,
 ) inherits ::beegfs {
 
   require ::beegfs::install
-  validate_array($interfaces)
 
-  if $storage_directory.is_a(String) {
-    $storage_directory.split(',').each |$d| {
-      file { $d:
-        ensure => directory,
-        owner  => $user,
-        group  => $group,
-        before => Package['beegfs-storage'],
-      }
-    }
-  } else {
-    # with an array multiple directories are created
-    file { $storage_directory:
-      ensure => directory,
-      owner  => $user,
-      group  => $group,
-      before => Package['beegfs-storage'],
-    }
+  $_release_major = beegfs::release_to_major($release)
+
+  file { $storage_directory:
+    ensure => directory,
+    owner  => $user,
+    group  => $group,
+    before => Package['beegfs-storage'],
   }
 
   package { 'beegfs-storage':
@@ -59,7 +49,7 @@ class beegfs::storage (
     owner   => $user,
     group   => $group,
     mode    => '0644',
-    content => template("beegfs/${major_version}/beegfs-storage.conf.erb"),
+    content => template("beegfs/${_release_major}/beegfs-storage.conf.erb"),
     require => [
       File[$interfaces_file],
       Package['beegfs-storage'],

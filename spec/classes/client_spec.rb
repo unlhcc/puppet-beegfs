@@ -19,12 +19,14 @@ describe 'beegfs::client' do
 
   let(:user) { 'beegfs' }
   let(:group) { 'beegfs' }
+  let(:release) { '2015.03' }
 
   let(:params) do
     {
     :user  => user,
     :group => group,
-  }
+    :release => release,
+    }
   end
 
   it { is_expected.to contain_class('beegfs::client') }
@@ -247,8 +249,8 @@ describe 'beegfs::client' do
   context 'allow changing client ports' do
     let(:params) do
       {
-      :client_udp  => 8010,
-      :helperd_tcp => 8011,
+      :client_udp_port  => 8010,
+      :helperd_tcp_port => 8011,
     }
     end
 

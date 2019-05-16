@@ -1,3 +1,4 @@
+# -*- mode: conf-unix; -*-
 # This is a config file for BeeGFS management nodes.
 # http://www.beegfs.com
 
@@ -17,16 +18,8 @@
 storeMgmtdDirectory      = <%= @directory %>
 storeAllowFirstRunInit   = <%= @allow_first_run_init %>
 
-<% if @allow_new_servers -%>
-sysAllowNewServers       = true
-<% else -%>
-sysAllowNewServers       = false
-<% end -%>
-<% if @allow_new_targets -%>
-sysAllowNewTargets       = true
-<% else -%>
-sysAllowNewTargets       = false
-<% end -%>
+sysAllowNewServers       = <%= @allow_new_servers %>
+sysAllowNewTargets       = <%= @allow_new_targets %>
 
 
 #
@@ -79,11 +72,7 @@ tuneStorageSpaceEmergencyLimit         = <%= @storage_space_emergency_limit %>
 # enterprise features.
 #
 
-<% if @enable_quota -%>
-quotaEnableEnforcement                 = true
-<% else -%>
-quotaEnableEnforcement                 = false
-<% end -%>
+quotaEnableEnforcement                 = <%= @enable_quota %>
 
 
 #

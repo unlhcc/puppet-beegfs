@@ -56,6 +56,29 @@ class { 'beegfs::storage':
 }
 ```
 
+### Initialization
+
+#### mgmtd
+
+If `beegfs::allow_first_run_init` is `true` you may skip this step.
+
+```sh
+beegfs-setup-mgmtd -p /mnt/myraid1/beegfs-mgmtd
+```
+
+#### meta
+
+If `beegfs::allow_first_run_init` is `true` you may skip this step.
+
+##### Example 1
+
+Initialize metadata storage directory of first metadata server and set
+"storage01" as management daemon host in config file:
+
+```sh
+beegfs-setup-meta -p /mnt/myraid1/beegfs-meta -s 1 -m storage01
+```
+
 ## Hiera support
 
 All configuration could be specified in Hiera config files. Some settings
@@ -65,7 +88,7 @@ are shared between all components, like:
 beegfs::mgmtd_host: '192.168.1.1'
 beegfs::mgmtd::allow_new_servers: true
 beegfs::mgmtd::allow_new_targets: true
-beegfs::major_version: '6'
+beegfs::release: 6
 ```
 
 version could be also defined exactly, like:

@@ -24,7 +24,7 @@ describe 'beegfs::meta' do
     {
     :user  => user,
     :group => group,
-    :major_version => '2015.03',
+    :release => '7.1',
   }
   end
 
@@ -77,13 +77,13 @@ describe 'beegfs::meta' do
     it_behaves_like 'debian-meta', 'Ubuntu', 'precise'
   end
 
-  shared_examples 'beegfs-version' do |major_version|
+  shared_examples 'beegfs-version' do |release|
 
     context 'allow changing parameters' do
       let(:params) do
         {
         :mgmtd_host => '192.168.1.1',
-        :major_version => major_version,
+        :release => release,
       }
       end
 
@@ -114,7 +114,7 @@ describe 'beegfs::meta' do
       let(:params) do
         {
         :package_ensure => version,
-        :major_version => major_version,
+        :release => release,
       }
       end
 
@@ -141,7 +141,7 @@ describe 'beegfs::meta' do
         :interfaces_file => '/etc/beegfs/meta.itf',
         :user            => user,
         :group           => group,
-        :major_version   => major_version,
+        :release   => release,
       }
       end
 
@@ -172,7 +172,7 @@ describe 'beegfs::meta' do
       let(:params) do
         {
         :log_level => 5,
-        :major_version => major_version,
+        :release => release,
       }
       end
 
@@ -187,7 +187,7 @@ describe 'beegfs::meta' do
       let(:params) do
         {
         :mgmtd_host => '192.168.1.1',
-        :major_version => major_version,
+        :release => release,
       }
       end
 
@@ -202,7 +202,7 @@ describe 'beegfs::meta' do
       let(:params) do
         {
         :allow_first_run_init => false,
-        :major_version => major_version,
+        :release => release,
       }
       end
 

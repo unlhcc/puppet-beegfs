@@ -3,36 +3,41 @@
 # This module manages BeeGFS mgmtd
 #
 class beegfs::mgmtd (
-  $enable                        = true,
-  $directory                     = '/srv/beegfs/mgmtd',
-  $allow_first_run_init          = true,
-  $client_auto_remove_mins       = $beegfs::client_auto_remove_mins,
-  $meta_space_low_limit          = $beegfs::meta_space_low_limit,
-  $meta_space_emergency_limit    = $beegfs::meta_space_emergency_limit,
-  $storage_space_low_limit       = $beegfs::storage_space_low_limit,
-  $storage_space_emergency_limit = $beegfs::storage_space_emergency_limit,
-  $version                       = $beegfs::version,
-  $log_dir                       = $beegfs::log_dir,
-  $log_level                     = 2,
-  $user                          = $beegfs::user,
-  $group                         = $beegfs::group,
-  $package_ensure                = $beegfs::package_ensure,
-  $interfaces                    = ['eth0'],
-  $interfaces_file               = '/etc/beegfs/interfaces.mgmtd',
-  $major_version                 = $beegfs::major_version,
-  $enable_quota                  = $beegfs::enable_quota,
-  $allow_new_servers             = $beegfs::allow_new_servers,
-  $allow_new_targets             = $beegfs::allow_new_targets,
-  ) inherits ::beegfs {
+  Boolean              $enable                        = true,
+  Stdlib::AbsolutePath $directory                     = '/srv/beegfs/mgmtd',
+  Boolean              $allow_first_run_init          = true,
+  Integer[0,default]   $client_auto_remove_mins       = $beegfs::client_auto_remove_mins,
+  Beegfs::ByteAmount   $meta_space_low_limit          = $beegfs::meta_space_low_limit,
+  Beegfs::ByteAmount   $meta_space_emergency_limit    = $beegfs::meta_space_emergency_limit,
+  Beegfs::ByteAmount   $storage_space_low_limit       = $beegfs::storage_space_low_limit,
+  Beegfs::ByteAmount   $storage_space_emergency_limit = $beegfs::storage_space_emergency_limit,
+  $version                                            = $beegfs::version,
+  Beegfs::LogDir       $log_dir                       = $beegfs::log_dir,
+  Beegfs::LogType      $log_type                      = $beegfs::log_type,
+  Beegfs::LogLevel     $log_level                     = 2,
+  String               $user                          = $beegfs::user,
+  String               $group                         = $beegfs::group,
+  $package_ensure                                     = $beegfs::package_ensure,
+  Array[String]        $interfaces                    = ['eth0'],
+  Stdlib::AbsolutePath $interfaces_file               = '/etc/beegfs/interfaces.mgmtd',
+  Beegfs::Release      $release                       = $beegfs::release,
+  Boolean              $enable_quota                  = $beegfs::enable_quota,
+  Boolean              $allow_new_servers             = $beegfs::allow_new_servers,
+  Boolean              $allow_new_targets             = $beegfs::allow_new_targets,
+  Stdlib::Port         $mgmtd_tcp_port                = $beegfs::mgmtd_tcp_port,
+  Stdlib::Port         $mgmtd_udp_port                = $beegfs::mgmtd_udp_port,
+) inherits ::beegfs {
+
   require ::beegfs
   require ::beegfs::install
-  validate_array($interfaces)
+
+  $_release_major = beegfs::release_to_major($release)
 
   package { 'beegfs-mgmtd':
     ensure => $package_ensure,
   }
 
-  # mgmgtd main directory
+  # mgmtd main directory
   file { $directory:
     ensure  => directory,
     owner   => $user,
@@ -52,7 +57,7 @@ class beegfs::mgmtd (
     ensure  => present,
     owner   => $user,
     group   => $group,
-    content => template("beegfs/${major_version}/beegfs-mgmtd.conf.erb"),
+    content => template("beegfs/${_release_major}/beegfs-mgmtd.conf.erb"),
     require => [
       Package['beegfs-mgmtd'],
       File[$interfaces_file],

@@ -5,7 +5,7 @@
 #
 # This class file is not called directly
 class beegfs::repo(
-  $release,
+  Beegfs::Release $release,
   $manage_repo    = $beegfs::manage_repo,
   $package_source = $beegfs::package_source,
 ) inherits beegfs {

@@ -1,4 +1,5 @@
-# This is a config file for BeeGFS client helper 
+# -*- mode: conf-unix; -*-
+# This is a config file for BeeGFS client helper
 # daemons.
 # http://www.beegfs.com
 
@@ -11,11 +12,11 @@
 
 
 #
-# --- Section 1: [Settings] --- 
+# --- Section 1: [Settings] ---
 #
 
 connAuthFile       =
-connHelperdPortTCP = <%= @helperd_tcp %>
+connHelperdPortTCP = <%= @helperd_tcp_port %>
 connPortShift      = 0
 
 logNoDate          = false
@@ -60,7 +61,7 @@ tuneNumWorkers     = 2
 # [connPortShift]
 # Shifts all following UDP and TCP ports according to the specified value.
 # Intended to make port changes easier in case you do not want to configure
-# each port individually.  
+# each port individually.
 # Default: 0
 
 
@@ -71,7 +72,7 @@ tuneNumWorkers     = 2
 # [logNoDate]
 # Defines whether "date & time" (=false) or the current "time only" (=true)
 # should be logged.
-# Default: false 
+# Default: false
 
 # [logNumLines]
 # The maximum number of lines per log file.
@@ -104,4 +105,3 @@ tuneNumWorkers     = 2
 # The number of worker threads. A value of up to twice the number of CPU cores
 # of your machine is the recommended choice.
 # Default: 2
-
