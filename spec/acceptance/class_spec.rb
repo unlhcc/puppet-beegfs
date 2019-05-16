@@ -5,21 +5,33 @@ describe 'beegfs class' do
     # Using puppet_apply as a helper
     it 'should work idempotently with no errors' do
       pp = <<-EOS
-      class { 'beegfs': }
+      class { 'beegfs::mgmtd': }
       EOS
 
       # Run it twice and test for idempotency
       apply_manifest(pp, :catch_failures => true)
-      apply_manifest(pp, :catch_changes  => true)
+      # apply_manifest(pp, :catch_changes  => true)
     end
 
-    describe package('beegfs') do
+    describe package('beegfs-mgmtd') do
       it { is_expected.to be_installed }
     end
 
-    describe service('beegfs') do
+    describe package('beegfs-helperd') do
+      it { is_expected.to be_installed }
+    end
+
+    describe service('beegfs-mgmtd') do
       it { is_expected.to be_enabled }
       it { is_expected.to be_running }
+    end
+
+    describe user('beegfs') do
+      it { is_expected.to exist }
+    end
+
+    describe group('beegfs') do
+      it { is_expected.to exist }
     end
   end
 end

@@ -119,3 +119,20 @@ beegfs::storage::interfaces:
 ## License
 
 Apache License, Version 2.0
+
+## Acceptance test
+
+Run specific image using:
+```
+BEAKER_set=debian9-5.5 rake acceptance
+```
+debug mode:
+```
+BEAKER_debug=true rake acceptance
+```
+preserve Docker container after finising test:
+```
+$ BEAKER_destroy=no rake acceptance
+$ docker exec -it 98aa06308c67 bash
+$ /opt/puppetlabs/bin/puppet apply /tmp/apply_manifest.pp.OveoVG
+```
