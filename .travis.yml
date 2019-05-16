@@ -3,8 +3,8 @@ sudo: false
 language: ruby
 bundler_args: --without development system_tests
 rvm:
-  - 2.2.7
   - 2.3.3
+  - 2.5.5
 script: RAKE_ENV=ci bundle exec rake test
 cache:
   - bundler
