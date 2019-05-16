@@ -116,7 +116,7 @@ beegfs::storage::interfaces:
 ## Requirements
 
  * Ruby 2.0 or newer
- * at least Puppet 4.7 and < 6.0
+ * at least Puppet 4.9 and < 6.0
 
 ## License
 
