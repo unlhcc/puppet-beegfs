@@ -12,10 +12,23 @@ cache:
     - $HOME/librarian-puppet
 env:
   matrix:
-    - PUPPET_VERSION="~> 4.5.0" STRICT_VARIABLES=yes
-    - PUPPET_VERSION="~> 4.6.0" STRICT_VARIABLES=yes
     - PUPPET_VERSION="~> 4.7.0" STRICT_VARIABLES=yes
     - PUPPET_VERSION="~> 4.8.0" STRICT_VARIABLES=yes
     - PUPPET_VERSION="~> 4.9.0" STRICT_VARIABLES=yes
     - PUPPET_VERSION="~> 4.10.0" STRICT_VARIABLES=yes
     - PUPPET_VERSION="~> 5.0.0" STRICT_VARIABLES=yes
+    - PUPPET_VERSION="~> 5.5.0" STRICT_VARIABLES=yes
+matrix:
+  include:
+    - rvm: 2.3.3
+      dist: xenial
+      env: RAKE_ENV=ci BEAKER_debug=true BEAKER_set=debian9-5.5
+      script: bundle exec rake acceptance
+      services: docker
+      sudo: required
+    - rvm: 2.3.3
+      dist: xenial
+      env: RAKE_ENV=ci BEAKER_debug=true BEAKER_set=debian9-6.3
+      script: bundle exec rake acceptance
+      services: docker
+      sudo: required
