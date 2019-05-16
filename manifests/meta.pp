@@ -12,7 +12,7 @@ class beegfs::meta (
   Beegfs::LogLevel     $log_level            = $beegfs::log_level,
   String               $user                 = $beegfs::user,
   String               $group                = $beegfs::group,
-  $package_ensure                            = hiera('beegfs::package_ensure', $beegfs::package_ensure),
+  $package_ensure                            = lookup('beegfs::package_ensure', String, undef, $beegfs::package_ensure),
   Array[String]        $interfaces           = ['eth0'],
   Stdlib::AbsolutePath $interfaces_file      = '/etc/beegfs/interfaces.meta',
   Beegfs::Release      $release              = $beegfs::release,
