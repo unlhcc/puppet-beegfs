@@ -30,11 +30,8 @@ group :development do
   gem "travis-lint"
   gem "puppet-blacksmith"
   gem "guard-rake"
-  if RUBY_VERSION < "2.0.0"
-    gem 'rubocop','< 0.42'
-  else
-    gem 'rubocop'
-  end
+  # CVE-2017-8418
+  gem "rubocop", ">= 0.49.0"
 end
 
 group :system_tests do
