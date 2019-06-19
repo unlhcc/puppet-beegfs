@@ -16,6 +16,7 @@ class beegfs::client (
           $autobuild_args  = '-j8',
           $netfilters      = [''],
           $netfilter_file  = '/etc/beegfs/beegfs-netfilter.conf',
+          $mount_hook      = undef,
 ) inherits beegfs {
 
   require ::beegfs::install
@@ -59,6 +60,14 @@ class beegfs::client (
     group   => $group,
     mode    => '0644',
     content => template("beegfs/${major_version}/beegfs-client-autobuild.conf.erb"),
+  }
+
+  file { '/etc/default/beegfs-client':
+    ensure  => present,
+    owner   => $user,
+    group   => $group,
+    mode    => '0644',
+    content => template("beegfs/${major_version}/beegfs-client-sysconfig.erb"),
   }
 
   exec { '/etc/init.d/beegfs-client rebuild':
